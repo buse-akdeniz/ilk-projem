@@ -23,14 +23,14 @@ public static class IdentitySeeder
 
         var users = services.GetRequiredService<UserManager<ApplicationUser>>();
         var elderly = await EnsureUserAsync(
-            users, elderlyEmail, elderlyPassword, "App Review User", "Elderly", null);
+            users, elderlyEmail, elderlyPassword, "Ayşe", "Elderly", null);
 
         var familyEmail = configuration["AppReview:FamilyEmail"];
         var familyPassword = configuration["AppReview:FamilyPassword"];
         if (!string.IsNullOrWhiteSpace(familyEmail) && !string.IsNullOrWhiteSpace(familyPassword))
         {
             await EnsureUserAsync(
-                users, familyEmail, familyPassword, "App Review Family", "Family", elderly.Id);
+                users, familyEmail, familyPassword, "Mehmet", "Family", elderly.Id);
         }
     }
 
@@ -51,7 +51,7 @@ public static class IdentitySeeder
             UserName = email,
             Email = email,
             EmailConfirmed = true,
-            DisplayName = displayName,
+            DisplayName = displayName.Trim(),
             AccountType = accountType,
             ElderlyOwnerId = elderlyOwnerId,
             LockoutEnabled = true

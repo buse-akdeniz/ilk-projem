@@ -1353,7 +1353,9 @@
             try {
                 stopCamera();
             } catch (_) {}
-            const target = new URL('index.html?returnTo=homeScreen', window.location.href).href;
+            const params = new URLSearchParams(window.location.search || '');
+            const returnTo = params.get('returnTo') || 'medicationScreen';
+            const target = new URL(`index.html?returnTo=${encodeURIComponent(returnTo)}`, window.location.href).href;
             try {
                 window.location.assign(target);
             } catch (_) {

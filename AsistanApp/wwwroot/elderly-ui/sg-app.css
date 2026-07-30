@@ -1,20 +1,22 @@
-/* SafeGuardian — Production UI (v2) */
+/* SafeGuardian — Calm care UI (app-wide) */
 :root {
-  --sg-bg: #0c1118;
-  --sg-surface: #151d2b;
-  --sg-surface-2: #1f2a3d;
-  --sg-border: #2d3b52;
-  --sg-text: #f4f7fb;
-  --sg-muted: #9aa8bc;
-  --sg-accent: #3b9eff;
-  --sg-accent-2: #22c55e;
-  --sg-warn: #f59e0b;
-  --sg-danger: #ef4444;
-  --sg-radius: 14px;
+  --sg-bg: #eef3f8;
+  --sg-surface: #ffffff;
+  --sg-surface-2: #f5f8fc;
+  --sg-border: #d5deea;
+  --sg-text: #142033;
+  --sg-muted: #5b6b82;
+  --sg-accent: #2f6fed;
+  --sg-accent-2: #1f9d55;
+  --sg-warn: #d97706;
+  --sg-danger: #e11d48;
+  --sg-header: #16325c;
+  --sg-radius: 16px;
   --sg-touch: 52px;
   --sg-header-h: 56px;
   --sg-safe-top: env(safe-area-inset-top, 0px);
   --sg-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --sg-shadow: 0 10px 28px rgba(20, 32, 51, 0.08);
 }
 
 html, body {
@@ -78,16 +80,17 @@ body.sg-on-inner .screen.active {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 8000;
+  z-index: 11000;
   height: calc(var(--sg-header-h) + var(--sg-safe-top));
   padding: var(--sg-safe-top) 12px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  background: rgba(12, 17, 24, 0.94);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--sg-border);
+  background: var(--sg-header);
+  border-bottom: none;
+  color: #fff;
+  pointer-events: auto;
 }
 
 .sg-app-header.is-hidden {
@@ -555,15 +558,117 @@ body.sg-on-inner .screen.active {
   color: var(--sg-accent) !important;
 }
 
-/* ——— Modals & toast ——— */
+/* ——— App prompt / confirm modal (must be visible on iOS) ——— */
+.sg-modal {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 12000 !important;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.72);
+  box-sizing: border-box;
+}
+
+.sg-modal.show,
+.sg-modal:not([hidden]).show {
+  display: flex !important;
+}
+
+.sg-modal[hidden] {
+  display: none !important;
+}
+
 .sg-modal-card {
   background: var(--sg-surface) !important;
   border: 1px solid var(--sg-border) !important;
   color: var(--sg-text) !important;
+  width: min(100%, 420px);
+  border-radius: 18px;
+  padding: 20px 18px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
 }
 
 .sg-modal-card h3 {
   color: var(--sg-text) !important;
+  margin: 0 0 8px;
+  font-size: 20px;
+}
+
+.sg-modal-card p {
+  margin: 0 0 14px;
+  color: var(--sg-muted);
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.sg-modal-input {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 52px;
+  margin: 0 0 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--sg-border);
+  background: #0b1220;
+  color: var(--sg-text);
+  font-size: 18px;
+}
+
+.sg-modal-input[hidden] {
+  display: none !important;
+}
+
+.sg-modal-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.sg-modal-actions .btn-small {
+  flex: 1;
+  min-height: 48px;
+}
+
+/* Small phone overflow guards */
+.home-grid,
+.mood-quick-buttons,
+.btn-stack {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.home-grid .btn-mega,
+.mood-quick-btn {
+  min-width: 0 !important;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+#subscriptionScreen .main-area,
+#profileScreen .main-area,
+#healthScreen .main-area {
+  overflow-x: hidden;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+#subscriptionContent,
+.sg-sub-card,
+.sg-profile-card {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.emergency-countdown {
+  font-size: 64px;
+  font-weight: 800;
+  line-height: 1;
+  text-align: center;
+  color: #ef4444;
+  margin: 8px 0 12px;
 }
 
 .sg-toast {
@@ -879,4 +984,1105 @@ body.ad-banner-visible .screen {
   flex-direction: column;
   gap: 10px;
   width: 100%;
+}
+
+/* ========== Calm home redesign (mockup-aligned) ========== */
+:root {
+  --sg-calm-bg: #eef3f8;
+  --sg-calm-surface: #ffffff;
+  --sg-calm-ink: #142033;
+  --sg-calm-muted: #5b6b82;
+  --sg-calm-blue: #2f6fed;
+  --sg-calm-green: #1f9d55;
+  --sg-calm-header: #16325c;
+}
+
+body.sg-on-home {
+  background: var(--sg-calm-bg) !important;
+}
+
+body.sg-on-home .screen#homeScreen {
+  background: var(--sg-calm-bg) !important;
+  padding-bottom: calc(84px + var(--sg-safe-bottom)) !important;
+}
+
+body.sg-on-home .sg-app-header {
+  background: var(--sg-calm-header) !important;
+  border-bottom: none;
+  color: #fff;
+  justify-content: space-between;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+body.sg-on-home .sg-brand-text {
+  color: #fff !important;
+  font-size: 18px;
+  letter-spacing: 0.02em;
+}
+
+body.sg-on-home .sg-brand-text small { display: none; }
+
+.sg-brand--center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.sg-header-icon {
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  position: relative;
+  z-index: 5;
+  pointer-events: auto !important;
+  -webkit-tap-highlight-color: rgba(255,255,255,0.2);
+  touch-action: manipulation;
+  cursor: pointer;
+}
+
+.sg-ico-menu,
+.sg-ico-bell {
+  width: 22px;
+  height: 22px;
+  display: block;
+  background: currentColor;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+.sg-ico-menu {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h16v2H4v-2z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h16v2H4v-2z'/%3E%3C/svg%3E");
+}
+
+.sg-ico-bell {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M12 22a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22zm7-6V11a7 7 0 1 0-14 0v5l-2 2v1h18v-1l-2-2z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M12 22a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22zm7-6V11a7 7 0 1 0-14 0v5l-2 2v1h18v-1l-2-2z'/%3E%3C/svg%3E");
+}
+
+.home-calm {
+  gap: 18px !important;
+  padding-top: 8px !important;
+}
+
+.home-greeting {
+  margin: 4px 0 12px;
+  font-size: clamp(28px, 7vw, 36px);
+  font-weight: 800;
+  color: var(--sg-calm-ink);
+  letter-spacing: -0.02em;
+}
+
+.home-status-pill {
+  width: 100%;
+  min-height: 56px;
+  border: 0;
+  border-radius: 16px;
+  background: var(--sg-calm-green);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 8px 20px rgba(31, 157, 85, 0.25);
+}
+
+.home-status-check {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  display: grid;
+  place-items: center;
+}
+
+.home-card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  width: 100%;
+}
+
+.home-card {
+  min-height: 132px;
+  border: 0;
+  border-radius: 22px;
+  background: var(--sg-calm-surface);
+  box-shadow: 0 10px 28px rgba(20, 32, 51, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 18px 12px;
+  color: var(--sg-calm-ink);
+}
+
+.home-card-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: #e8f0ff;
+  position: relative;
+}
+
+.home-card-icon::before {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  background: var(--sg-calm-blue);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+.home-card-icon--med::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M8.5 3A4.5 4.5 0 0 0 4 7.5v9A4.5 4.5 0 0 0 8.5 21h7A4.5 4.5 0 0 0 20 16.5v-9A4.5 4.5 0 0 0 15.5 3h-7zm3 4h1v4h4v1h-4v4h-1v-4h-4v-1h4V7z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M8.5 3A4.5 4.5 0 0 0 4 7.5v9A4.5 4.5 0 0 0 8.5 21h7A4.5 4.5 0 0 0 20 16.5v-9A4.5 4.5 0 0 0 15.5 3h-7zm3 4h1v4h4v1h-4v4h-1v-4h-4v-1h4V7z'/%3E%3C/svg%3E");
+}
+.home-card-icon--family::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M16 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3zM8 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3zm0 2c-2.67 0-8 1.34-8 4v2h10v-2c0-1.47.78-2.7 2-3.46C11.16 13.2 9.5 13 8 13zm8 0c-.29 0-.62.02-.97.05A4.86 4.86 0 0 1 17 17v2h7v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M16 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3zM8 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3zm0 2c-2.67 0-8 1.34-8 4v2h10v-2c0-1.47.78-2.7 2-3.46C11.16 13.2 9.5 13 8 13zm8 0c-.29 0-.62.02-.97.05A4.86 4.86 0 0 1 17 17v2h7v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E");
+}
+.home-card-icon--health::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M12 21s-7.2-4.6-9.5-8.2C.7 10.2 1.4 6.8 4.2 5.4 6.2 4.4 8.5 5 10 6.5L12 8.4l2-1.9c1.5-1.5 3.8-2.1 5.8-1.1 2.8 1.4 3.5 4.8 1.7 7.4C19.2 16.4 12 21 12 21z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M12 21s-7.2-4.6-9.5-8.2C.7 10.2 1.4 6.8 4.2 5.4 6.2 4.4 8.5 5 10 6.5L12 8.4l2-1.9c1.5-1.5 3.8-2.1 5.8-1.1 2.8 1.4 3.5 4.8 1.7 7.4C19.2 16.4 12 21 12 21z'/%3E%3C/svg%3E");
+}
+.home-card-icon--help::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm8 1.5V8h4.5L14 3.5zM8 12h8v2H8v-2zm0 4h6v2H8v-2z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm8 1.5V8h4.5L14 3.5zM8 12h8v2H8v-2zm0 4h6v2H8v-2z'/%3E%3C/svg%3E");
+}
+
+.home-card-label {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--sg-calm-ink);
+}
+
+.home-emergency-btn {
+  width: 100%;
+  min-height: 64px;
+  border: 0;
+  border-radius: 18px;
+  background: #e11d48;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  box-shadow: 0 12px 28px rgba(225, 29, 72, 0.28);
+}
+
+.home-emergency-ico {
+  width: 22px;
+  height: 22px;
+  background: #fff;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11 11 0 0 0 3.4.55 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11 11 0 0 0 .55 3.4 1 1 0 0 1-.25 1L6.6 10.8z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11 11 0 0 0 3.4.55 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11 11 0 0 0 .55 3.4 1 1 0 0 1-.25 1L6.6 10.8z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.home-secondary-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.home-secondary-btn {
+  min-height: 48px;
+  border: 1px solid #d5deea;
+  border-radius: 14px;
+  background: #fff;
+  color: var(--sg-calm-muted);
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.sg-bottom-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 7500;
+  display: none;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  padding: 10px 12px calc(10px + var(--sg-safe-bottom));
+  background: rgba(255,255,255,0.96);
+  border-top: 1px solid #dce5f0;
+  backdrop-filter: blur(10px);
+}
+
+.sg-bottom-nav.is-visible { display: grid; }
+
+.sg-bottom-nav-item {
+  border: 0;
+  background: transparent;
+  color: var(--sg-calm-muted);
+  min-height: 52px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.sg-bottom-nav-item.is-active { color: var(--sg-calm-blue); }
+
+.sg-bottom-ico {
+  width: 22px;
+  height: 22px;
+  background: currentColor;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+.sg-bottom-ico--home {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M12 3 3 10h2v10h6v-6h2v6h6V10h2L12 3z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M12 3 3 10h2v10h6v-6h2v6h6V10h2L12 3z'/%3E%3C/svg%3E");
+}
+.sg-bottom-ico--family {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M16 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3zM8 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3zm0 2c-2.67 0-8 1.34-8 4v2h10v-2c0-1.1.5-2.1 1.4-2.9C10.2 13.4 9.1 13 8 13zm8 0c-1.1 0-2.2.4-3.1 1 .9.8 1.4 1.8 1.4 2.9v2h10v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M16 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3zM8 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3zm0 2c-2.67 0-8 1.34-8 4v2h10v-2c0-1.1.5-2.1 1.4-2.9C10.2 13.4 9.1 13 8 13zm8 0c-1.1 0-2.2.4-3.1 1 .9.8 1.4 1.8 1.4 2.9v2h10v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E");
+}
+.sg-bottom-ico--profile {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm0 2c-4 0-8 2-8 5v2h16v-2c0-3-4-5-8-5z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm0 2c-4 0-8 2-8 5v2h16v-2c0-3-4-5-8-5z'/%3E%3C/svg%3E");
+}
+
+.emergency-flow-modal .modal-content,
+.emergency-flow-card {
+  background: #fff !important;
+  color: var(--sg-calm-ink) !important;
+  border-radius: 24px !important;
+  padding: 24px 20px !important;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.emergency-ring {
+  width: 140px;
+  height: 140px;
+  margin: 12px auto 16px;
+  border-radius: 50%;
+  border: 8px solid #fecdd3;
+  box-shadow: inset 0 0 0 8px #fff, 0 0 0 4px #e11d48;
+  display: grid;
+  place-items: center;
+}
+
+.emergency-countdown {
+  font-size: 64px !important;
+  font-weight: 800;
+  color: #e11d48 !important;
+  margin: 0 !important;
+}
+
+.emergency-flow-desc {
+  text-align: center;
+  font-size: 18px;
+  color: var(--sg-calm-muted);
+  margin-bottom: 18px;
+}
+
+.emergency-flow-actions {
+  display: grid !important;
+  gap: 10px;
+}
+
+.emergency-cancel-outline {
+  background: #fff !important;
+  color: #e11d48 !important;
+  border: 2px solid #e11d48 !important;
+}
+
+.emergency-loc-note {
+  margin-top: 14px;
+  text-align: center;
+  color: var(--sg-calm-green);
+  font-weight: 650;
+}
+
+.loc-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--sg-calm-green);
+  margin-right: 6px;
+}
+
+.emergency-result {
+  gap: 16px !important;
+}
+
+.emergency-map-card {
+  min-height: 180px;
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, rgba(47,111,237,0.08), rgba(47,111,237,0.18)),
+    repeating-linear-gradient(90deg, #dbe7f8 0 1px, transparent 1px 28px),
+    repeating-linear-gradient(0deg, #dbe7f8 0 1px, transparent 1px 28px),
+    #edf3fb;
+  position: relative;
+  display: grid;
+  place-items: end center;
+  padding: 16px;
+}
+
+.emergency-map-pin {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  width: 22px;
+  height: 22px;
+  border-radius: 50% 50% 50% 0;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  background: #e11d48;
+  box-shadow: 0 8px 16px rgba(225,29,72,0.35);
+}
+
+.emergency-map-label {
+  background: rgba(255,255,255,0.92);
+  border-radius: 12px;
+  padding: 8px 12px;
+  font-size: 14px;
+  color: var(--sg-calm-ink);
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.emergency-checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.emergency-checklist li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #fff;
+  border: 1px solid #dce5f0;
+  color: var(--sg-calm-ink);
+  font-weight: 650;
+}
+
+.emergency-checklist li .check-ico {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #dcfce7;
+  color: #15803d;
+  font-weight: 800;
+}
+
+.emergency-checklist li.is-fail .check-ico {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.link-home {
+  border: 0;
+  background: transparent;
+  color: var(--sg-calm-blue);
+  font-size: 16px;
+  font-weight: 700;
+  min-height: 44px;
+}
+
+@media (max-width: 380px) {
+  .home-card { min-height: 118px; }
+  .home-card-label { font-size: 15px; }
+  .home-greeting { font-size: 26px; }
+}
+
+/* ========== APP-WIDE CALM THEME (overrides elderly.css dark/yellow) ========== */
+html, body,
+.screen,
+.screen.active {
+  background: var(--sg-bg) !important;
+  color: var(--sg-text) !important;
+}
+
+body.high-contrast,
+body.high-contrast .screen {
+  background: #000 !important;
+  color: #fff !important;
+}
+
+/* Touch targets: large but not overflowing small phones */
+button {
+  min-width: 0 !important;
+  min-height: 48px !important;
+}
+
+.btn-giant,
+.btn-mega,
+.home-card,
+.home-emergency-btn,
+.home-status-pill {
+  min-height: 56px !important;
+}
+
+.btn-small,
+.btn-back,
+.btn-lang {
+  min-width: 44px !important;
+  min-height: 44px !important;
+}
+
+/* Top bars on every inner screen */
+.top-bar {
+  background: var(--sg-header) !important;
+  color: #fff !important;
+  border-bottom: none !important;
+  padding: calc(var(--sg-safe-top) + 10px) 14px 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 50 !important;
+}
+
+.top-bar h1,
+.top-bar h2 {
+  color: #fff !important;
+  font-size: 18px !important;
+  font-weight: 750 !important;
+  margin: 0 !important;
+  flex: 1;
+  text-align: left !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.btn-back,
+.top-bar .btn-small.btn-back {
+  background: rgba(255,255,255,0.12) !important;
+  color: #fff !important;
+  border: 1px solid rgba(255,255,255,0.22) !important;
+  border-radius: 12px !important;
+  padding: 8px 12px !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  flex-shrink: 0;
+}
+
+/* Forms */
+.form-container,
+.input-group {
+  max-width: 100%;
+}
+
+.input-group label,
+label {
+  color: var(--sg-muted) !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+input,
+textarea,
+select,
+.a11y-input,
+.sg-modal-input {
+  background: #fff !important;
+  color: var(--sg-text) !important;
+  border: 1px solid var(--sg-border) !important;
+  border-radius: 14px !important;
+  min-height: 52px !important;
+  font-size: 17px !important;
+  padding: 12px 14px !important;
+  box-shadow: none !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid rgba(47, 111, 237, 0.35) !important;
+  border-color: var(--sg-accent) !important;
+}
+
+/* Primary buttons */
+.btn-giant,
+.btn-mega {
+  border-radius: 16px !important;
+  font-weight: 750 !important;
+  letter-spacing: 0.02em;
+  box-shadow: var(--sg-shadow) !important;
+  border: none !important;
+}
+
+.btn-blue,
+.btn-giant.btn-blue {
+  background: var(--sg-accent) !important;
+  color: #fff !important;
+}
+
+.btn-green,
+.btn-giant.btn-green {
+  background: var(--sg-accent-2) !important;
+  color: #fff !important;
+}
+
+.btn-red,
+.btn-giant.btn-red,
+.btn-delete {
+  background: var(--sg-danger) !important;
+  color: #fff !important;
+}
+
+.btn-gray,
+.btn-giant.btn-gray,
+.btn-yellow {
+  background: #fff !important;
+  color: var(--sg-text) !important;
+  border: 1px solid var(--sg-border) !important;
+  box-shadow: none !important;
+}
+
+.btn-yellow {
+  background: #fff7ed !important;
+  border-color: #fdba74 !important;
+  color: #9a3412 !important;
+}
+
+.btn-stack {
+  display: grid !important;
+  gap: 10px !important;
+  width: 100% !important;
+}
+
+.btn-stack .btn-giant {
+  width: 100% !important;
+}
+
+/* Cards */
+.sg-profile-card,
+.sg-sub-card,
+.sg-med-card,
+.family-card,
+.medication-card,
+.section-large,
+.sg-mood-dashboard,
+#moodDashboard,
+#healthRecordsList,
+#medicationsList > div,
+#familyList > div,
+.help-content,
+.help-section {
+  background: var(--sg-surface) !important;
+  color: var(--sg-text) !important;
+  border: 1px solid var(--sg-border) !important;
+  border-radius: 18px !important;
+  box-shadow: var(--sg-shadow) !important;
+}
+
+.sg-profile-card,
+.sg-sub-card {
+  padding: 18px !important;
+}
+
+.sg-field,
+.sg-sub-block {
+  padding: 12px 0 !important;
+  border-bottom: 1px solid var(--sg-border) !important;
+}
+
+.sg-field:last-child,
+.sg-sub-block:last-child {
+  border-bottom: none !important;
+}
+
+.sg-field-label,
+.sg-sub-block-label {
+  color: var(--sg-muted) !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.sg-field-value,
+.sg-sub-block-value,
+#profileName, #profileEmail, #profilePhone, #profilePlan, #profileDaysLeft,
+#subCurrentPlan, #subEndDate {
+  color: var(--sg-accent) !important;
+  font-size: 18px !important;
+  font-weight: 750 !important;
+}
+
+.sg-sub-legal,
+.sg-sub-links a {
+  color: var(--sg-muted) !important;
+  font-size: 13px !important;
+  line-height: 1.45;
+}
+
+.sg-sub-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.sg-sub-links a {
+  color: var(--sg-accent) !important;
+  font-weight: 700 !important;
+  text-decoration: none;
+}
+
+/* Medication / family list cards */
+.sg-med-card {
+  padding: 16px !important;
+  margin-bottom: 12px !important;
+}
+
+.sg-med-card-title {
+  color: var(--sg-text) !important;
+  font-size: 20px !important;
+  font-weight: 800 !important;
+}
+
+.sg-med-card-line,
+.sg-med-card-note,
+.sg-med-card-stock {
+  color: var(--sg-muted) !important;
+  font-size: 15px !important;
+}
+
+.sg-med-card-actions {
+  display: grid !important;
+  gap: 8px !important;
+  margin-top: 12px !important;
+}
+
+/* Kill yellow neon leftovers from elderly.css */
+[style*="color: #ffff00"],
+[style*="color:#ffff00"],
+[style*="color: #ffaa00"],
+[style*="color:#ffaa00"],
+[style*="border-left: 5px solid #ffff00"] {
+  color: var(--sg-text) !important;
+}
+
+#medicationsList [style*="background: rgba(255,255,0"],
+#familyList [style*="background"],
+#healthRecordsList [style*="background"] {
+  background: var(--sg-surface) !important;
+  border: 1px solid var(--sg-border) !important;
+  border-radius: 16px !important;
+  color: var(--sg-text) !important;
+}
+
+/* Login */
+#loginScreen,
+#registerScreen {
+  background: var(--sg-bg) !important;
+}
+
+.sg-login-hero h1,
+.logo-area h1,
+.logo {
+  color: var(--sg-header) !important;
+  text-shadow: none !important;
+}
+
+.sg-login-logo {
+  box-shadow: var(--sg-shadow) !important;
+}
+
+.btn-lang {
+  background: #fff !important;
+  color: var(--sg-muted) !important;
+  border: 1px solid var(--sg-border) !important;
+  border-radius: 999px !important;
+  box-shadow: none !important;
+}
+
+.btn-lang.active {
+  background: var(--sg-accent) !important;
+  color: #fff !important;
+  border-color: var(--sg-accent) !important;
+  box-shadow: none !important;
+}
+
+.remember-row,
+.remember-me,
+#loginForm {
+  color: var(--sg-text) !important;
+}
+
+/* Force settings sheet closed unless opened */
+.a11y-controls:not(.is-open) {
+  display: none !important;
+  pointer-events: none !important;
+}
+.a11y-controls.is-open {
+  display: flex !important;
+  pointer-events: auto !important;
+  z-index: 12050 !important;
+}
+
+.a11y-menu {
+  background: #fff !important;
+  border: 1px solid var(--sg-border) !important;
+  color: var(--sg-text) !important;
+}
+
+.a11y-label {
+  color: var(--sg-muted) !important;
+}
+
+.a11y-btn {
+  border-radius: 12px !important;
+}
+
+/* Help */
+.help-content,
+.help-section,
+#helpScreen .main-area {
+  color: var(--sg-text) !important;
+}
+
+#helpScreen h2,
+#helpScreen h3 {
+  color: var(--sg-header) !important;
+}
+
+#helpScreen p,
+#helpScreen li {
+  color: var(--sg-muted) !important;
+  font-size: 16px !important;
+  line-height: 1.5 !important;
+}
+
+/* Mood / health empty states */
+#moodDashboard,
+#healthRecordsList,
+#medicationsList,
+#familyList {
+  color: var(--sg-text) !important;
+}
+
+.voice-indicator {
+  color: var(--sg-accent) !important;
+  background: #e8f0ff !important;
+  border-radius: 12px;
+  padding: 8px 12px;
+  font-weight: 650;
+}
+
+.voice-indicator:empty {
+  display: none !important;
+  padding: 0 !important;
+}
+
+/* Modal / emergency result light */
+#emergencyResultScreen,
+#emergencyResultScreen .main-area {
+  background: var(--sg-bg) !important;
+}
+
+.modal {
+  background: rgba(20, 32, 51, 0.55) !important;
+}
+
+.modal-content {
+  background: #fff !important;
+  color: var(--sg-text) !important;
+  border-radius: 22px !important;
+}
+
+.voice-onboarding,
+.voice-onboarding-card {
+  background: rgba(20, 32, 51, 0.45);
+}
+
+.voice-onboarding-card {
+  background: #fff !important;
+  color: var(--sg-text) !important;
+  border-radius: 22px !important;
+  padding: 24px !important;
+}
+
+/* Toast readable on light UI */
+.sg-toast--info {
+  background: #fff !important;
+  color: var(--sg-text) !important;
+  border: 1px solid var(--sg-border) !important;
+}
+
+/* Bottom nav visible on home; padding for all scroll screens */
+body.sg-on-home .screen#homeScreen {
+  background: var(--sg-bg) !important;
+}
+
+body.sg-on-inner .screen.active .main-area,
+body.sg-on-inner .screen.active .form-container {
+  padding-bottom: calc(24px + var(--sg-safe-bottom)) !important;
+}
+
+/* Subscription overflow fix */
+#subscriptionScreen .main-area,
+#profileScreen .main-area {
+  overflow-x: hidden !important;
+}
+
+#subscriptionContent .btn-stack .btn-giant {
+  font-size: 15px !important;
+  padding: 14px 12px !important;
+  white-space: normal !important;
+  line-height: 1.25 !important;
+}
+
+/* High contrast still usable */
+body.high-contrast .top-bar,
+body.high-contrast .sg-app-header {
+  background: #000 !important;
+  border-bottom: 2px solid #fff !important;
+}
+
+body.high-contrast .home-card,
+body.high-contrast .sg-profile-card,
+body.high-contrast .sg-sub-card,
+body.high-contrast .sg-med-card {
+  background: #111 !important;
+  border-color: #fff !important;
+  color: #fff !important;
+}
+
+/* Large text mode */
+body.large-text .home-greeting { font-size: 40px !important; }
+body.large-text .home-card-label,
+body.large-text .btn-giant,
+body.large-text .sg-field-value { font-size: 22px !important; }
+
+/* Hide unused doctor report on calm home (still reachable from help/health later) */
+
+.sg-empty-state,
+.sg-family-empty,
+.sg-health-empty {
+  text-align: center;
+  padding: 28px 16px;
+  color: var(--sg-muted) !important;
+  font-size: 17px !important;
+  font-weight: 650;
+  background: var(--sg-surface);
+  border: 1px dashed var(--sg-border);
+  border-radius: 16px;
+}
+
+.sg-family-card,
+.sg-health-card {
+  background: var(--sg-surface) !important;
+  border: 1px solid var(--sg-border) !important;
+  border-left: 5px solid var(--sg-accent) !important;
+  border-radius: 16px !important;
+  padding: 16px !important;
+  margin-bottom: 12px !important;
+  box-shadow: var(--sg-shadow);
+}
+
+.sg-family-card-name,
+.sg-health-card-title {
+  color: var(--sg-text) !important;
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  margin-bottom: 6px;
+}
+
+.sg-family-card-line,
+.sg-health-card-meta,
+.sg-health-card-status {
+  color: var(--sg-muted) !important;
+  font-size: 15px !important;
+  margin-top: 4px;
+}
+
+.sg-health-add-panel {
+  margin-top: 8px;
+  padding: 16px;
+  background: var(--sg-surface);
+  border: 1px solid var(--sg-border);
+  border-radius: 18px;
+  box-shadow: var(--sg-shadow);
+}
+
+.sg-health-add-title {
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 750;
+  color: var(--sg-text);
+}
+
+.sg-brand-text { color: #fff !important; }
+
+/* Calm bottom nav on more screens for elderly */
+body.sg-on-inner .sg-bottom-nav {
+  display: grid;
+}
+body.sg-on-inner .screen.active {
+  padding-bottom: calc(84px + var(--sg-safe-bottom)) !important;
+}
+body.sg-on-inner #loginScreen,
+body.sg-on-inner #registerScreen {
+  padding-bottom: var(--sg-safe-bottom) !important;
+}
+
+/* ========== COMPACT INNER LAYOUT (kill huge top/bottom gaps) ========== */
+.screen {
+  padding-top: 0 !important;
+}
+
+#loginScreen {
+  padding-top: calc(var(--sg-safe-top) + 12px) !important;
+}
+
+body.sg-on-home .screen#homeScreen {
+  padding-top: calc(var(--sg-header-h) + var(--sg-safe-top)) !important;
+}
+
+/* One safe-area only, sticky in-flow header (not fixed + content pad) */
+.top-bar {
+  position: sticky !important;
+  top: 0 !important;
+  left: auto !important;
+  right: auto !important;
+  height: auto !important;
+  min-height: 52px !important;
+  margin: 0 !important;
+  padding: calc(var(--sg-safe-top) + 8px) 12px 10px !important;
+  box-sizing: border-box !important;
+  background: var(--sg-header) !important;
+  border-bottom: none !important;
+  backdrop-filter: none !important;
+  z-index: 60 !important;
+  flex-shrink: 0 !important;
+}
+
+/* Kill the old "fixed header spacer" that created the big white gap */
+.screen .main-area,
+.screen .form-container,
+.screen:not(#loginScreen):not(#registerScreen) .main-area,
+.screen:not(#loginScreen):not(#registerScreen) .form-container,
+body.sg-on-inner .screen.active .main-area,
+body.sg-on-inner .screen.active .form-container,
+#moodScreen .main-area,
+#profileScreen .main-area,
+#subscriptionScreen .main-area,
+#registerScreen .form-container,
+#addMedicationScreen .form-container,
+#addFamilyScreen .form-container,
+#healthRecordsScreen .main-area,
+#medicationScreen .main-area,
+#familyScreen .main-area,
+#helpScreen .main-area,
+#emergencyResultScreen .main-area {
+  padding-top: 12px !important;
+  margin-top: 0 !important;
+  justify-content: flex-start !important;
+  align-items: stretch !important;
+}
+
+.screen .main-area,
+.screen .form-container {
+  padding-left: 14px !important;
+  padding-right: 14px !important;
+  padding-bottom: calc(12px + var(--sg-safe-bottom)) !important;
+  gap: 12px !important;
+  flex: 1 1 auto !important;
+}
+
+/* Leave room for bottom nav without huge empty slab */
+body.sg-on-inner .screen.active {
+  padding-bottom: calc(72px + var(--sg-safe-bottom)) !important;
+}
+
+body.sg-on-inner .screen.active .main-area,
+body.sg-on-inner .screen.active .form-container {
+  padding-bottom: 12px !important;
+}
+
+#registerScreen,
+#addMedicationScreen,
+#addFamilyScreen,
+#profileScreen,
+#subscriptionScreen {
+  justify-content: flex-start !important;
+  align-items: stretch !important;
+}
+
+.form-container {
+  gap: 10px !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.form-container .input-group {
+  margin: 0 0 4px !important;
+}
+
+.form-container .btn-giant,
+.main-area > .btn-giant {
+  margin-top: 8px !important;
+  margin-bottom: 0 !important;
+}
+
+#profileScreen .main-area,
+#subscriptionScreen .main-area {
+  gap: 10px !important;
+}
+
+#profileInfo.sg-profile-card,
+#subscriptionContent.sg-sub-card {
+  margin: 0 !important;
+}
+
+#addFamilyForm {
+  margin-top: 0 !important;
+}
+
+/* Hide bottom nav on register/add forms to reclaim space */
+body.sg-on-inner #registerScreen ~ .sg-bottom-nav,
+/* nav is outside screens; hide via body class hooks */
+body.sg-hide-bottom-nav .sg-bottom-nav {
+  display: none !important;
 }

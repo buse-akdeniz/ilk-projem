@@ -8,6 +8,8 @@ PODS:
   - CapacitorCommunityAdmob (6.1.0):
     - Capacitor
     - Google-Mobile-Ads-SDK (= 11.3.0)
+  - CapacitorCommunitySpeechRecognition (6.0.1):
+    - Capacitor
   - CapacitorCordova (6.2.1)
   - CapacitorGeolocation (6.1.1):
     - Capacitor
@@ -28,6 +30,7 @@ DEPENDENCIES:
   - "Capacitor (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorCamera (from `../../node_modules/@capacitor/camera`)"
   - "CapacitorCommunityAdmob (from `../../node_modules/@capacitor-community/admob`)"
+  - "CapacitorCommunitySpeechRecognition (from `../../node_modules/@capacitor-community/speech-recognition`)"
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorGeolocation (from `../../node_modules/@capacitor/geolocation`)"
   - "CapacitorPreferences (from `../../node_modules/@capacitor/preferences`)"
@@ -49,6 +52,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/camera"
   CapacitorCommunityAdmob:
     :path: "../../node_modules/@capacitor-community/admob"
+  CapacitorCommunitySpeechRecognition:
+    :path: "../../node_modules/@capacitor-community/speech-recognition"
   CapacitorCordova:
     :path: "../../node_modules/@capacitor/ios"
   CapacitorGeolocation:
@@ -63,6 +68,7 @@ SPEC CHECKSUMS:
   Capacitor: c95400d761e376be9da6be5a05f226c0e865cebf
   CapacitorCamera: 5ba135b0cb55a788758139fa2404d726bf60f0f3
   CapacitorCommunityAdmob: 5bcc77d91f71e39a6fdd0dea5de71ea6c241996e
+  CapacitorCommunitySpeechRecognition: 73be1a178a23856d9706886d5f40ef06a6055438
   CapacitorCordova: 8d93e14982f440181be7304aa9559ca631d77fff
   CapacitorGeolocation: ef657a46a125be74010f4ce57caae173c23204d2
   CapacitorPreferences: 5848e0691b36b4bb4acc98e481ab56d451578d30
@@ -72,6 +78,6 @@ SPEC CHECKSUMS:
   RevenueCat: e47ff90dfd271fde155a4befe48e8fc02e8281e4
   RevenuecatPurchasesCapacitor: 6727a4dc1455bdf2374259420719ce5dfbe957fa
 
-PODFILE CHECKSUM: bd29818518334d0cb1aaf88f8b2e6cbc082aa9a0
+PODFILE CHECKSUM: 131da3cc4486c87fb5007a3dc43e2bd630cd5f19
 
 COCOAPODS: 1.16.2

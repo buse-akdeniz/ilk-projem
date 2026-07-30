@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Threading.RateLimiting;
 using ilk_projem.Controllers;
+using ilk_projem.Hubs;
 using ilk_projem.Models.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -200,6 +201,7 @@ using (var scope = app.Services.CreateScope())
 
 // ── Routes ────────────────────────────────────────────────────────────────────
 app.MapControllers();
+app.MapHub<HealthReportHub>("/hubs/health");
 app.MapStateEndpoints();
 app.MapAdEndpoints();
 app.MapDeviceEndpoints();

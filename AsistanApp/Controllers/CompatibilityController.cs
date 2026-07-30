@@ -1,12 +1,15 @@
 using System.Security.Claims;
 using System.Text.Json;
 using ilk_projem.Data;
+using ilk_projem.Hubs;
 using ilk_projem.Models.Persistence;
 using ilk_projem.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
@@ -283,6 +286,19 @@ public sealed class CompatibilityController : ControllerBase
         });
     }
 
+    [Authorize(Roles = "Elderly")]
+    [HttpDelete("medications/{id:int}")]
+    public async Task<IResult> DeleteMedication(int id, CancellationToken cancellationToken)
+    {
+        var medication = await _db.Medications
+            .SingleOrDefaultAsync(x => x.Id == id && x.ElderlyId == ElderlyId(), cancellationToken);
+        if (medication is null)
+            return Results.NotFound(new { success = false, message = "İlaç bulunamadı" });
+        _db.Medications.Remove(medication);
+        await _db.SaveChangesAsync(cancellationToken);
+        return Results.Ok(new { success = true, deleted = true, id });
+    }
+
     [HttpGet("family-members")]
     public async Task<IResult> FamilyMembers(
         [FromServices] SubscriptionService subscriptions,
@@ -420,18 +436,260 @@ public sealed class CompatibilityController : ControllerBase
     [HttpPost("emergency-broadcast")]
     public async Task<IResult> EmergencyAlert(
         [FromBody] JsonElement payload,
+        [FromServices] IHubContext<HealthReportHub> hub,
+        [FromServices] PushNotificationService push,
+        [FromServices] EmergencySmsService sms,
+        [FromServices] IDataProtectionProvider dataProtection,
+        [FromServices] IConfiguration configuration,
         CancellationToken cancellationToken)
     {
-        _db.EmergencyAlerts.Add(new StoredEmergencyAlert
+        var elderlyId = ElderlyId();
+        var elderly = await _db.Users.AsNoTracking()
+            .Where(x => x.Id == elderlyId)
+            .Select(x => new { x.DisplayName, x.PhoneNumber })
+            .SingleOrDefaultAsync(cancellationToken);
+        var elderlyName = string.IsNullOrWhiteSpace(elderly?.DisplayName) ? "SafeGuardian kullanıcısı" : elderly.DisplayName;
+
+        var (locationLabel, mapsUrl, latitude, longitude, accuracy) = ParseEmergencyLocation(payload);
+        var description = payload.TryGetProperty("message", out var messageEl)
+            ? messageEl.GetString() ?? ""
+            : "";
+        if (string.IsNullOrWhiteSpace(description))
+            description = string.IsNullOrWhiteSpace(locationLabel)
+                ? "Acil yardım çağrısı. Konum alınamadı."
+                : $"Acil yardım çağrısı. Konum: {locationLabel}";
+
+        var alert = new StoredEmergencyAlert
         {
             Id = Guid.NewGuid().ToString("N"),
-            ElderlyId = ElderlyId(),
-            AlertType = payload.TryGetProperty("type", out var type) ? type.GetString() ?? "emergency" : "emergency",
-            Description = payload.TryGetProperty("message", out var message) ? message.GetString() ?? "" : "",
-            OccurredAt = DateTime.UtcNow
+            ElderlyId = elderlyId,
+            AlertType = payload.TryGetProperty("type", out var typeEl) ? typeEl.GetString() ?? "emergency" : "emergency",
+            Description = description,
+            OccurredAt = DateTime.UtcNow,
+            LocationLabel = locationLabel,
+            MapsUrl = mapsUrl,
+            Latitude = latitude,
+            Longitude = longitude,
+            AccuracyMeters = accuracy
+        };
+        _db.EmergencyAlerts.Add(alert);
+
+        _db.Notifications.Add(new StoredNotification
+        {
+            ElderlyId = elderlyId,
+            Type = "emergency_alert",
+            Message = description,
+            Severity = "high"
         });
+        alert.NotificationStored = true;
+
+        var broadcastPayload = new
+        {
+            elderlyId,
+            elderlyName,
+            alertId = alert.Id,
+            type = "emergency_alert",
+            message = description,
+            location = string.IsNullOrWhiteSpace(mapsUrl) ? locationLabel : mapsUrl,
+            coords = latitude is null || longitude is null
+                ? null
+                : new { latitude, longitude, accuracy },
+            timestamp = DateTime.UtcNow
+        };
+
+        var realtimeOk = false;
+        try
+        {
+            await hub.Clients.Group("family:all").SendAsync("ReceiveEmergencyBroadcast", broadcastPayload, cancellationToken);
+            await hub.Clients.Group($"family:{elderlyId}").SendAsync("ReceiveEmergencyBroadcast", broadcastPayload, cancellationToken);
+            await hub.Clients.All.SendAsync("ReceiveEmergencyAlert", broadcastPayload, cancellationToken);
+            realtimeOk = true;
+        }
+        catch
+        {
+            realtimeOk = false;
+        }
+        alert.RealtimeBroadcasted = realtimeOk;
+
+        var pushSent = 0;
+        try
+        {
+            var familyUserIds = await _db.Users.AsNoTracking()
+                .Where(x => x.AccountType == "Family" && x.ElderlyOwnerId == elderlyId)
+                .Select(x => x.Id)
+                .ToListAsync(cancellationToken);
+            if (familyUserIds.Count > 0)
+            {
+                var registrations = await _db.DeviceRegistrations.AsNoTracking()
+                    .Where(x => familyUserIds.Contains(x.UserId))
+                    .ToListAsync(cancellationToken);
+                var protector = dataProtection.CreateProtector("SafeGuardian.DeviceTokens.v1");
+                foreach (var reg in registrations)
+                {
+                    string? token = null;
+                    try { token = protector.Unprotect(reg.EncryptedToken); }
+                    catch { continue; }
+                    if (string.IsNullOrWhiteSpace(token)) continue;
+                    var isIos = reg.Platform.Contains("ios", StringComparison.OrdinalIgnoreCase)
+                        || reg.Platform.Contains("iphone", StringComparison.OrdinalIgnoreCase);
+                    var sent = await push.SendAsync(new PushNotification
+                    {
+                        UserId = reg.UserId,
+                        Title = "ACİL YARDIM",
+                        Body = $"{elderlyName}: {description}",
+                        Type = PushNotificationService.NotificationTypes.Emergency,
+                        Priority = "high",
+                        Sound = "default",
+                        Badge = 1,
+                        FcmToken = isIos ? null : token,
+                        ApnsToken = isIos ? token : null,
+                        Data = new Dictionary<string, string>
+                        {
+                            ["action"] = "open_emergency",
+                            ["alertId"] = alert.Id,
+                            ["elderlyId"] = elderlyId,
+                            ["location"] = mapsUrl
+                        }
+                    });
+                    if (sent) pushSent++;
+                }
+            }
+        }
+        catch
+        {
+            // Push is best-effort; SMS/realtime still matter.
+        }
+
+        var smsDispatched = 0;
+        var smsConfigured = sms.IsConfigured;
+        var smsError = (string?)null;
+        if (smsConfigured)
+        {
+            var dailyLimit = configuration.GetValue("Sms:DailyPerUserLimit", 10);
+            var sentToday = await _db.SmsDispatchAudits
+                .CountAsync(x => x.UserId == UserId()
+                    && x.Succeeded
+                    && x.CreatedAt >= DateTime.UtcNow.AddHours(-24), cancellationToken);
+            if (sentToday >= dailyLimit)
+            {
+                smsError = "Günlük SMS güvenlik limiti aşıldı.";
+            }
+            else
+            {
+                var phones = await _db.FamilyMembers.AsNoTracking()
+                    .Where(x => x.ElderlyId == elderlyId && x.PhoneNumber != "")
+                    .Select(x => x.PhoneNumber)
+                    .ToListAsync(cancellationToken);
+                var allowed = phones.Select(NormalizePhone)
+                    .Where(x => x.Length >= 10)
+                    .Distinct(StringComparer.Ordinal)
+                    .Take(Math.Max(0, dailyLimit - sentToday))
+                    .ToArray();
+                var smsBody = string.IsNullOrWhiteSpace(mapsUrl)
+                    ? $"ACIL DURUM! {elderlyName} yardım istedi. Konum alınamadı."
+                    : $"ACIL DURUM! {elderlyName} yardım istedi. Konum: {mapsUrl}";
+                smsBody = smsBody[..Math.Min(smsBody.Length, 500)];
+                foreach (var recipient in allowed)
+                {
+                    var succeeded = await sms.SendAsync(recipient, smsBody, cancellationToken);
+                    _db.SmsDispatchAudits.Add(new SmsDispatchAudit
+                    {
+                        UserId = UserId(),
+                        RecipientHash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(recipient))),
+                        Succeeded = succeeded,
+                        CreatedAt = DateTime.UtcNow
+                    });
+                    if (succeeded) smsDispatched++;
+                }
+                if (allowed.Length == 0)
+                    smsError = "Kayıtlı aile telefonu bulunamadı.";
+                else if (smsDispatched == 0)
+                    smsError = "SMS gönderilemedi.";
+            }
+        }
+        else
+        {
+            smsError = "SMS sağlayıcısı yapılandırılmamış.";
+        }
+        alert.SmsDispatched = smsDispatched > 0;
+
         await _db.SaveChangesAsync(cancellationToken);
-        return Results.Ok(new { success = true, acknowledged = true });
+
+        var locationSaved = !string.IsNullOrWhiteSpace(locationLabel) || latitude is not null;
+        var familyReached = realtimeOk || smsDispatched > 0 || pushSent > 0;
+        return Results.Ok(new
+        {
+            success = true,
+            acknowledged = true,
+            alertId = alert.Id,
+            locationSaved,
+            location = locationLabel,
+            mapsUrl,
+            notificationStored = true,
+            realtimeBroadcasted = realtimeOk,
+            pushSent,
+            smsConfigured,
+            smsDispatched,
+            smsError,
+            familyReached,
+            message = familyReached
+                ? "Acil yardım kaydı oluşturuldu ve aileye iletim denendi."
+                : "Acil yardım kaydı oluşturuldu ancak aileye iletim doğrulanamadı."
+        });
+    }
+
+    private static (string Label, string MapsUrl, double? Latitude, double? Longitude, double? Accuracy)
+        ParseEmergencyLocation(JsonElement payload)
+    {
+        string label = "";
+        string mapsUrl = "";
+        double? latitude = null;
+        double? longitude = null;
+        double? accuracy = null;
+
+        if (payload.TryGetProperty("location", out var locationEl))
+        {
+            if (locationEl.ValueKind == JsonValueKind.String)
+            {
+                label = locationEl.GetString()?.Trim() ?? "";
+                if (label.Contains("maps.google", StringComparison.OrdinalIgnoreCase)
+                    || label.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+                    mapsUrl = label;
+            }
+            else if (locationEl.ValueKind == JsonValueKind.Object)
+            {
+                if (locationEl.TryGetProperty("latitude", out var latEl) && latEl.TryGetDouble(out var lat))
+                    latitude = lat;
+                if (locationEl.TryGetProperty("longitude", out var lngEl) && lngEl.TryGetDouble(out var lng))
+                    longitude = lng;
+                if (locationEl.TryGetProperty("accuracy", out var accEl) && accEl.TryGetDouble(out var acc))
+                    accuracy = acc;
+                if (locationEl.TryGetProperty("mapsUrl", out var mapsEl))
+                    mapsUrl = mapsEl.GetString()?.Trim() ?? "";
+                if (locationEl.TryGetProperty("label", out var labelEl))
+                    label = labelEl.GetString()?.Trim() ?? "";
+            }
+        }
+
+        if (payload.TryGetProperty("coords", out var coordsEl) && coordsEl.ValueKind == JsonValueKind.Object)
+        {
+            if (latitude is null && coordsEl.TryGetProperty("latitude", out var lat2) && lat2.TryGetDouble(out var latV))
+                latitude = latV;
+            if (longitude is null && coordsEl.TryGetProperty("longitude", out var lng2) && lng2.TryGetDouble(out var lngV))
+                longitude = lngV;
+            if (accuracy is null && coordsEl.TryGetProperty("accuracy", out var acc2) && acc2.TryGetDouble(out var accV))
+                accuracy = accV;
+        }
+
+        if (latitude is not null && longitude is not null)
+        {
+            if (string.IsNullOrWhiteSpace(label))
+                label = $"{latitude.Value:F5}, {longitude.Value:F5}";
+            if (string.IsNullOrWhiteSpace(mapsUrl))
+                mapsUrl = $"https://maps.google.com/?q={latitude.Value},{longitude.Value}";
+        }
+
+        return (label, mapsUrl, latitude, longitude, accuracy);
     }
 
     [HttpPost("emergency-sms/test")]

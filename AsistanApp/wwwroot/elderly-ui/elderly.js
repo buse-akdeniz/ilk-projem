@@ -113,10 +113,10 @@ const TRANSLATIONS = {
         appleSignIn: 'Sign in with Apple', biometricLoginBtn: 'Face ID ile Giriş',
         registerTitle: 'KAYIT OL', backBtn: '← GERİ', fullNameLabel: 'AD SOYAD',
         phoneLabel: 'TELEFON', birthDateLabel: 'DOĞUM TARİHİ', completeRegBtn: 'KAYDI TAMAMLA',
-        logoutBtn: 'ÇIKIŞ', medicationsLabel: 'İLAÇLARIM', familyLabel: 'AİLE', helpLabel: 'YARDIM',
+        logoutBtn: 'ÇIKIŞ', medicationsLabel: 'İlaçlarım', familyLabel: 'Ailem', helpLabel: 'Yardım',
         emergencyBtn: 'ACİL YARDIM', howAreYou: 'NASILSIN?',
         moodGood: 'İYİYİM', moodOk: 'İDARE EDER', moodBad: 'İYİ DEĞİLİM',
-        moodLabel: 'RUH HALİ', cameraLabel: 'KAMERA', healthLabel: 'SAĞLIK',
+        moodLabel: 'Ruh hali', cameraLabel: 'Kamera', healthLabel: 'Sağlığım',
         doctorBtn: 'DOKTORA GÖSTER', voiceBtn: 'DİNLE / SESİ TEKRARLA',
         moodScreenTitle: 'RUH HALİ TAKIBI', healthScreenTitle: 'SAĞLIK KAYITLARI',
         medicationsTitle: 'İLAÇLARIM', addMedBtn: 'YENİ İLAÇ EKLE',
@@ -125,12 +125,23 @@ const TRANSLATIONS = {
         familyTitle: 'AİLE ÜYELERİ', addFamilyBtn: 'AİLE ÜYESİ EKLE',
         addFamilyTitle: 'AİLE ÜYESİ EKLE', nameLabel: 'AD', relationLabel: 'İLİŞKİ',
         helpTitle: 'YARDIM', understoodBtn: 'ANLADIM',
-        emergencyModalTitle: 'Acil yardım çağrılıyor',
-        emergencyModalDesc: '5 saniye içinde onaylanacak. Aileye ve sağlık kuruluşlarına bildirim ile konum paylaşılır. İptal edebilirsiniz.',
-        confirmBtn: 'ONAYLA', cancelBtn: 'İPTAL',
+        emergencyModalTitle: 'Acil yardım',
+        emergencyModalDesc: 'Konumunuz alınıyor ve ailenize haber verilecek',
+        confirmBtn: 'ŞİMDİ GÖNDER', cancelBtn: 'İPTAL ET',
+        locationOn: 'Konum açık',
+        emergencyResultTitle: 'Yardım durumu',
+        checkLocation: 'Konum alındı',
+        checkNotify: 'Aileye bildirim gönderildi',
+        checkSms: 'SMS gönderildi',
+        callFamilyBtn: 'AİLEMİ ARA',
+        backHomeLink: 'Ana sayfaya dön',
+        homeAllGood: 'Her şey yolunda',
+        howToUseLabel: 'Nasıl Kullanılır',
+        navHome: 'Ana Sayfa', navFamily: 'Aile', navProfile: 'Profil',
+        morningHi: 'Günaydın', afternoonHi: 'İyi günler', eveningHi: 'İyi akşamlar',
         voiceOnboardingTitle: 'Sesli Asistanı Başlat',
         voiceOnboardingDesc: 'Mikrofona dokun ve konuş. İstersen "İlaçlarım", "Aile", "Yardım" diyebilirsin.',
-        voiceStartBtn: 'DİNLEMEYİ BAŞLAT', voiceSkipBtn: 'ŞİMDİ DEĞİL',
+        voiceStartBtn: 'Sesli komut', voiceSkipBtn: 'ŞİMDİ DEĞİL',
         settingsBtn: 'AYARLAR', apiLabel: 'API ADRESİ',
         apiSaveBtn: 'KAYDET', apiClearBtn: 'SIFIRLA',
         largeTextOn: 'YAZIYI BÜYÜT', largeTextOff: 'YAZIYI KÜÇÜLT',
@@ -163,25 +174,28 @@ const TRANSLATIONS = {
         userFullName: 'AD SOYAD', userEmail: 'E-POSTA',
         subscriptionStatus: 'ABONE DURUMU', daysRemaining: 'KALAN GÜN',
         premiumPlan: 'PREMIUM', standardPlan: 'STANDART',
-        upgradePremium: 'AİLE PAKETİNE GEÇ', subscriptionButton: 'ABONELİK',
-        editProfileBtn: 'BİLGİ GÜNCELLE', logoutBtn: 'ÇIKIŞ YAP',
-        editLogoutBtn: 'ÇIKIŞ YAP',
-        privacyPolicyBtn: 'GİZLİLİK SÖZLEŞMESİ',
-        termsOfUseBtn: 'KULLANIM KOŞULLARI',
-        deleteAccountBtn: 'HESABI KALICI SİL',
-        buyFamilyPackageBtn: 'AİLE PAKETİNE GEÇ',
-        restorePurchasesBtn: 'SATIN ALMALARI GERİ YÜKLE',
-        termsPrivacyBtn: 'ŞARTLAR VE GİZLİLİK',
-        cancelSubscriptionBtn: 'ABONELİĞİ APPLE AYARLARINDA İPTAL ET',
-        manageSubscriptionsBtn: 'ABONELİKLERİ APPLE AYARLARINDA YÖNET',
+        upgradePremium: 'Aile Paketine Geç', subscriptionButton: 'Abonelik',
+        editProfileBtn: 'Bilgi güncelle', logoutBtn: 'Çıkış yap',
+        editLogoutBtn: 'Çıkış yap',
+        privacyPolicyBtn: 'Gizlilik',
+        termsOfUseBtn: 'Kullanım koşulları',
+        deleteAccountBtn: 'Hesabı kalıcı sil',
+        buyFamilyPackageBtn: 'Aile Paketine Geç',
+        restorePurchasesBtn: 'Satın almaları geri yükle',
+        termsPrivacyBtn: 'Şartlar ve gizlilik',
+        cancelSubscriptionBtn: 'Aboneliği iptal et',
+        manageSubscriptionsBtn: 'Apple’da yönet',
+        subscriptionPrivacyBtn: 'Gizlilik',
+        subscriptionTermsBtn: 'Kullanım koşulları',
+        watchAdUnlockBtn: 'Reklam izle (12 saat)',
+        closeBtn: 'Kapat',
+        settingsCloseBtn: 'Kapat',
         subscriptionLegalNote: 'Otomatik yenilemeli aboneliklerde iOS Ayarlar > Apple Kimliği > Abonelikler ekranından yönetim yapılabilir.',
-        autoRenewDisclosure: 'Satın alma işlemini onayladığınızda ödeme Apple hesabınızdan tahsil edilir. Abonelik, mevcut dönem bitmeden en az 24 saat önce iptal edilmediği sürece seçilen paket yenileme dönemine göre (Aylık) otomatik olarak yenilenir. Aboneliğinizi Ayarlar > Apple Kimliği > Abonelikler bölümünden yönetebilir veya iptal edebilirsiniz.',
-        subscriptionPrivacyBtn: 'GİZLİLİK POLİTİKASI',
-        subscriptionTermsBtn: 'KULLANIM KOŞULLARI (EULA)',
-        subscriptionDisclosureTitle: 'ABONELİK DETAYLARI',
+        autoRenewDisclosure: 'Satın alma işlemini onayladığınızda ödeme Apple hesabınızdan tahsil edilir. Abonelik, mevcut dönem bitmeden en az 24 saat önce iptal edilmediği sürece otomatik yenilenir.',
+        subscriptionDisclosureTitle: 'Abonelik detayları',
         subscriptionMonthlyLine: 'SafeGuardian Premium Aylık — 1 ay —',
         subscriptionYearlyLine: '',
-        subscriptionPriceNote: 'Fiyat ve para birimi App Store ülkenize göre gösterilir ve ödeme Apple hesabınızdan alınır.',
+        subscriptionPriceNote: 'Fiyat App Store ülkenize göre gösterilir; ödeme Apple hesabınızdan alınır.',
         privacyPolicyLinkLabel: 'Gizlilik Politikası',
         termsOfUseLinkLabel: 'Kullanım Koşulları',
         purchaseStarted: 'Satın alma başlatıldı',
@@ -202,12 +216,11 @@ const TRANSLATIONS = {
         biometricPromptReason: 'SafeGuardian hesabınıza giriş yapın',
         subscriptionCancelSuccess: 'Apple abonelik ayarları açıldı. İptal işlemini Ayarlar > Apple Hesabı > Abonelikler bölümünden yapın.',
         subscriptionCancelFailed: 'Abonelik ayarları açılamadı. Ayarlar > Apple Hesabı > Abonelikler yolunu kullanın.',
-        packageInfo: 'PAKET BİLGİLERİ', currentPackage: 'MEVCUT PAKET',
-        endDate: 'BİTİŞ TARİHİ', features: 'ÖZELLİKLER',
-        basicFeature1: 'Temel İlaç Yönetimi',
-        basicFeature2: 'Aile Üyeleri',
-        basicFeature3: 'Sesli Asistan',
-        closeBtn: '← KAPAT',
+        packageInfo: 'Paket bilgileri', currentPackage: 'Mevcut paket',
+        endDate: 'Bitiş tarihi', features: 'Özellikler',
+        basicFeature1: 'Temel ilaç yönetimi',
+        basicFeature2: 'Aile üyeleri',
+        basicFeature3: 'Sesli asistan',
         basicFeatures: 'Temel İlaç Yönetimi\nAile Üyeleri\nSesli Asistan',
         premiumFeatures: 'Video Doktor Konsültasyonu\nİnsan Asistanı (24/7)\nRuh Hali Analizi (AI)\nSağlık Trendleri',
         profileUpdated: 'Adınız güncellendi',
@@ -360,10 +373,10 @@ const TRANSLATIONS = {
         appleSignIn: 'Sign in with Apple', biometricLoginBtn: 'Sign in with Face ID',
         registerTitle: 'REGISTER', backBtn: '← BACK', fullNameLabel: 'FULL NAME',
         phoneLabel: 'PHONE', birthDateLabel: 'DATE OF BIRTH', completeRegBtn: 'COMPLETE REGISTRATION',
-        logoutBtn: 'LOGOUT', medicationsLabel: 'MY MEDICATIONS', familyLabel: 'FAMILY', helpLabel: 'HELP',
+        logoutBtn: 'LOGOUT', medicationsLabel: 'My medications', familyLabel: 'My family', helpLabel: 'Help',
         emergencyBtn: 'EMERGENCY HELP', howAreYou: 'HOW ARE YOU?',
         moodGood: 'FEELING GOOD', moodOk: 'SO SO', moodBad: 'NOT FEELING WELL',
-        moodLabel: 'MOOD', cameraLabel: 'CAMERA', healthLabel: 'HEALTH',
+        moodLabel: 'Mood', cameraLabel: 'Camera', healthLabel: 'My health',
         doctorBtn: 'SHOW DOCTOR', voiceBtn: 'LISTEN / REPEAT',
         moodScreenTitle: 'MOOD TRACKING', healthScreenTitle: 'HEALTH RECORDS',
         medicationsTitle: 'MY MEDICATIONS', addMedBtn: 'ADD MEDICATION',
@@ -372,12 +385,23 @@ const TRANSLATIONS = {
         familyTitle: 'FAMILY MEMBERS', addFamilyBtn: 'ADD FAMILY MEMBER',
         addFamilyTitle: 'ADD FAMILY MEMBER', nameLabel: 'NAME', relationLabel: 'RELATION',
         helpTitle: 'HELP', understoodBtn: 'GOT IT',
-        emergencyModalTitle: 'Calling emergency help',
-        emergencyModalDesc: 'Will be confirmed in 5 seconds. Location and notification will be shared with family and healthcare. You can cancel.',
-        confirmBtn: 'CONFIRM', cancelBtn: 'CANCEL',
+        emergencyModalTitle: 'Emergency help',
+        emergencyModalDesc: 'Getting your location and notifying your family',
+        confirmBtn: 'SEND NOW', cancelBtn: 'CANCEL',
+        locationOn: 'Location on',
+        emergencyResultTitle: 'Help status',
+        checkLocation: 'Location saved',
+        checkNotify: 'Family notified',
+        checkSms: 'SMS sent',
+        callFamilyBtn: 'CALL MY FAMILY',
+        backHomeLink: 'Back to home',
+        homeAllGood: 'Everything is okay',
+        howToUseLabel: 'How to use',
+        navHome: 'Home', navFamily: 'Family', navProfile: 'Profile',
+        morningHi: 'Good morning', afternoonHi: 'Good afternoon', eveningHi: 'Good evening',
         voiceOnboardingTitle: 'Start Voice Assistant',
         voiceOnboardingDesc: 'Tap the microphone and speak. You can say "Medications", "Family", "Help".',
-        voiceStartBtn: 'START LISTENING', voiceSkipBtn: 'NOT NOW',
+        voiceStartBtn: 'Voice command', voiceSkipBtn: 'NOT NOW',
         settingsBtn: 'SETTINGS', apiLabel: 'API ADDRESS',
         apiSaveBtn: 'SAVE', apiClearBtn: 'RESET',
         largeTextOn: 'INCREASE TEXT SIZE', largeTextOff: 'DECREASE TEXT SIZE',
@@ -419,8 +443,20 @@ const TRANSLATIONS = {
         buyFamilyPackageBtn: 'UPGRADE TO FAMILY PLAN',
         restorePurchasesBtn: 'RESTORE PURCHASES',
         termsPrivacyBtn: 'TERMS & PRIVACY',
-        cancelSubscriptionBtn: 'CANCEL IN APPLE SETTINGS',
-        manageSubscriptionsBtn: 'MANAGE IN APPLE SETTINGS',
+        cancelSubscriptionBtn: 'Cancel subscription',
+        manageSubscriptionsBtn: 'Manage in Apple',
+        watchAdUnlockBtn: 'Watch ad (12 hours)',
+        closeBtn: 'Close',
+        settingsCloseBtn: 'Close',
+        editProfileBtn: 'Update info',
+        privacyPolicyBtn: 'Privacy',
+        editLogoutBtn: 'Log out',
+        upgradePremium: 'Upgrade to Family',
+        subscriptionButton: 'Subscription',
+        buyFamilyPackageBtn: 'Upgrade to Family',
+        restorePurchasesBtn: 'Restore purchases',
+        subscriptionPrivacyBtn: 'Privacy',
+        subscriptionTermsBtn: 'Terms of use',
         subscriptionLegalNote: 'For auto-renewable subscriptions, you can manage billing in iOS Settings > Apple ID > Subscriptions.',
         autoRenewDisclosure: 'Payment will be charged to your Apple account at confirmation of purchase. The subscription automatically renews unless cancelled at least 24 hours before the end of the current period. Manage or cancel your subscription in Settings > Apple ID > Subscriptions.',
         subscriptionPrivacyBtn: 'PRIVACY POLICY',
@@ -700,6 +736,8 @@ function showAppPrompt(title, message, defaultValue = '') {
         titleEl.textContent = title;
         messageEl.textContent = message;
         inputEl.hidden = false;
+        inputEl.removeAttribute('hidden');
+        inputEl.style.display = 'block';
         inputEl.value = defaultValue || '';
         actionsEl.innerHTML = '';
         const cancelBtn = document.createElement('button');
@@ -709,6 +747,8 @@ function showAppPrompt(title, message, defaultValue = '') {
         cancelBtn.onclick = () => {
             modal.classList.remove('show');
             modal.hidden = true;
+            inputEl.setAttribute('hidden', '');
+            inputEl.style.display = 'none';
             resolve(null);
         };
         const okBtn = document.createElement('button');
@@ -719,12 +759,17 @@ function showAppPrompt(title, message, defaultValue = '') {
             const value = inputEl.value;
             modal.classList.remove('show');
             modal.hidden = true;
+            inputEl.setAttribute('hidden', '');
+            inputEl.style.display = 'none';
             resolve(value);
         };
         actionsEl.append(cancelBtn, okBtn);
         modal.hidden = false;
+        modal.removeAttribute('hidden');
         modal.classList.add('show');
-        setTimeout(() => inputEl.focus(), 50);
+        setTimeout(() => {
+            try { inputEl.focus(); inputEl.select?.(); } catch (_) { /* ignore */ }
+        }, 80);
     });
 }
 
@@ -818,6 +863,7 @@ const STOREKIT_PURCHASES_ENABLED = (() => {
 let lastGuidanceText = '';
 let emergencyTimer = null;
 let ignoreNextA11yClose = false;
+try { window.ignoreNextA11yClose = false; } catch (_) { /* ignore */ }
 let isEmergencyModalOpen = false;
 var speechRecognition = null;
 var isListening = false;
@@ -1427,6 +1473,7 @@ function toggleA11yMenu(event) {
         a11yMenu.removeAttribute('hidden');
         a11yMenuBtn.setAttribute('aria-expanded', 'true');
         ignoreNextA11yClose = true;
+        try { window.ignoreNextA11yClose = true; } catch (_) { /* ignore */ }
     }
 }
 
@@ -1469,6 +1516,9 @@ function applyTranslations() {
     // HTML lang attribute
     document.documentElement.lang = currentLang;
     updateSubscriptionDisclosurePrices();
+    if (window.SGShell?.ensureCloseButton) {
+        window.SGShell.ensureCloseButton();
+    }
     updatePurchaseButtonLabel();
     updateGreeting();
 
@@ -1501,6 +1551,7 @@ function setLanguage(lang) {
 // Inline onclick çağrıları için global erişim — bindGlobals() dosya sonunda çağrılır
 window.setLanguage = setLanguage;
 window.applyTranslations = applyTranslations;
+window.t = t;
 
 // iPad event handling: Add touchend fallback for Doktora Göster button
 document.addEventListener('DOMContentLoaded', () => {
@@ -2110,9 +2161,12 @@ async function startFamilyPackagePurchase(event) {
 }
 
 async function openAppleSubscriptionSettings() {
-    const settingsUrl = 'https://apps.apple.com/account/subscriptions';
-    const store = getStoreKitPlugin();
+    const settingsUrls = [
+        'itms-apps://apps.apple.com/account/subscriptions',
+        'https://apps.apple.com/account/subscriptions'
+    ];
 
+    const store = getStoreKitPlugin();
     if (IS_CAPACITOR_IOS && store?.openSubscriptionManagement) {
         try {
             const result = await store.openSubscriptionManagement();
@@ -2124,8 +2178,24 @@ async function openAppleSubscriptionSettings() {
         }
     }
 
-    openExternalUrl(settingsUrl);
-    return true;
+    const appPlugin = window.Capacitor?.Plugins?.App;
+    for (const url of settingsUrls) {
+        try {
+            if (appPlugin?.openUrl) {
+                await appPlugin.openUrl({ url });
+                return true;
+            }
+        } catch (error) {
+            console.warn('App.openUrl failed for', url, error);
+        }
+        try {
+            openExternalUrl(url);
+            return true;
+        } catch (error) {
+            console.warn('openExternalUrl failed for', url, error);
+        }
+    }
+    return false;
 }
 
 function openSubscriptionManagement() {
@@ -2198,8 +2268,74 @@ function repeatGuidance() {
     }
 }
 
+function getNativeSpeechPlugin() {
+    return window.Capacitor?.Plugins?.SpeechRecognition
+        || window.Capacitor?.Plugins?.SpeechRecognitionPlugin
+        || null;
+}
+
 function initSpeechRecognition() {
     if (speechRecognition) return speechRecognition;
+
+    const native = getNativeSpeechPlugin();
+    if (native && typeof native.start === 'function') {
+        const bridge = {
+            lang: currentLang === 'en' ? 'en-US' : 'tr-TR',
+            continuous: true,
+            async start() {
+                try {
+                    if (typeof native.requestPermissions === 'function') {
+                        await native.requestPermissions();
+                    } else if (typeof native.checkPermissions === 'function') {
+                        const perms = await native.checkPermissions();
+                        if (perms?.speechRecognition !== 'granted' && typeof native.requestPermissions === 'function') {
+                            await native.requestPermissions();
+                        }
+                    }
+                    if (typeof native.addListener === 'function' && !bridge.__listenerBound) {
+                        bridge.__listenerBound = true;
+                        native.addListener('partialResults', (event) => {
+                            const matches = event?.matches || event?.value || [];
+                            const transcript = Array.isArray(matches) ? matches[0] : matches;
+                            if (transcript && typeof handleVoiceCommand === 'function') {
+                                handleVoiceCommand(String(transcript));
+                            }
+                        });
+                    }
+                    await native.start({
+                        language: bridge.lang,
+                        maxResults: 3,
+                        prompt: currentLang === 'en' ? 'Listening…' : 'Dinleniyor…',
+                        partialResults: true,
+                        popup: false
+                    });
+                    isListening = true;
+                    updateVoiceStatus(t('voiceListening'));
+                } catch (error) {
+                    console.warn('Native speech start failed:', error);
+                    isListening = false;
+                    updateVoiceStatus('');
+                    showNotification(
+                        currentLang === 'en' ? 'Voice' : 'Ses',
+                        currentLang === 'en'
+                            ? 'Microphone permission or speech recognition is unavailable.'
+                            : 'Mikrofon izni veya ses tanıma kullanılamıyor.',
+                        'error'
+                    );
+                }
+            },
+            async stop() {
+                try {
+                    if (typeof native.stop === 'function') await native.stop();
+                } catch (_) { /* ignore */ }
+                isListening = false;
+                updateVoiceStatus('');
+            }
+        };
+        speechRecognition = bridge;
+        return speechRecognition;
+    }
+
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) {
         console.warn('Tarayıcı konuşma tanımayı desteklemiyor.');
@@ -2207,7 +2343,7 @@ function initSpeechRecognition() {
     }
 
     const recognition = new SpeechRecognition();
-    recognition.lang = currentLang === 'en' ? 'en-GB' : 'tr-TR';
+    recognition.lang = currentLang === 'en' ? 'en-US' : 'tr-TR';
     recognition.continuous = true;
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
@@ -2271,7 +2407,10 @@ function startVoiceCommand() {
     }
     if (isListening) return;
     try {
-        recognition.start();
+        const started = recognition.start();
+        if (started && typeof started.then === 'function') {
+            started.catch((error) => console.warn('Konuşma tanıma başlatılamadı:', error));
+        }
     } catch (error) {
         console.warn('Konuşma tanıma başlatılamadı:', error);
     }
@@ -2535,7 +2674,7 @@ function goToMoodDashboard() {
 }
 
 function goToMedicationVision() {
-    const target = new URL('medication-vision.html?returnTo=homeScreen', window.location.href).href;
+    const target = new URL('medication-vision.html?returnTo=medicationScreen', window.location.href).href;
     window.location.href = target;
 }
 
@@ -3338,15 +3477,30 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         document.addEventListener('click', (event) => {
             const target = event.target;
-            if (ignoreNextA11yClose) {
+            if (ignoreNextA11yClose || window.ignoreNextA11yClose) {
                 ignoreNextA11yClose = false;
+                try { window.ignoreNextA11yClose = false; } catch (_) { /* ignore */ }
                 return;
             }
-            if (!a11yMenu.contains(target) && !a11yMenuBtn.contains(target)) {
-                if (!a11yMenu.hasAttribute('hidden')) {
-                    a11yMenu.setAttribute('hidden', '');
-                    a11yMenuBtn.setAttribute('aria-expanded', 'false');
-                }
+            const menuBtn = document.getElementById('sgMenuBtn');
+            const settingsBtn = document.getElementById('sgSettingsBtn');
+            const wrap = document.getElementById('a11yControls');
+            if (
+                (menuBtn && (menuBtn === target || menuBtn.contains(target)))
+                || (settingsBtn && (settingsBtn === target || settingsBtn.contains(target)))
+                || (a11yMenuBtn && (a11yMenuBtn === target || a11yMenuBtn.contains(target)))
+                || (a11yMenu && a11yMenu.contains(target))
+            ) {
+                return;
+            }
+            if (window.SGShell?.closeSettings) {
+                window.SGShell.closeSettings();
+                return;
+            }
+            if (wrap) wrap.classList.remove('is-open');
+            if (!a11yMenu.hasAttribute('hidden')) {
+                a11yMenu.setAttribute('hidden', '');
+                a11yMenuBtn.setAttribute('aria-expanded', 'false');
             }
         });
     }
@@ -3613,6 +3767,9 @@ function handleReturnToScreen() {
         if (!returnTo || !document.getElementById(returnTo)) return;
         showScreen(returnTo);
         if (returnTo === 'homeScreen') updateGreeting();
+        if (returnTo === 'medicationScreen' && typeof loadMedications === 'function') {
+            loadMedications();
+        }
         const cleanUrl = `${window.location.pathname}`;
         window.history.replaceState({}, document.title, cleanUrl);
     } catch (error) {
@@ -4162,30 +4319,29 @@ async function handleRegister(e) {
 async function loadMedications() {
     const token = requireAuthToken();
     const container = document.getElementById('medicationsList');
+    const emptyHtml = (msg) => `<div class="sg-empty-state">${escapeHtml(msg)}</div>`;
     if (!token) {
-        if (container) container.innerHTML = `<div style="font-size:24px;color:#ffff00;text-align:center;padding:24px;">${t('medsEmpty')}</div>`;
+        if (container) container.innerHTML = emptyHtml(t('medsEmpty'));
         return;
     }
     try {
         const response = await safeFetch(`${API_BASE}/api/medications?token=${token}`, {}, { silent: true });
         if (!response) {
             if (isProductionApp()) {
-                if (container) {
-                    container.innerHTML = `<div style="font-size:22px;color:#ffaa00;text-align:center;padding:24px;">${escapeHtml(t('connErrorBanner'))}</div>`;
-                }
+                if (container) container.innerHTML = emptyHtml(t('connErrorBanner'));
                 return;
             }
             const medications = readLocalList('localMedications');
             currentMedicationsCache = medications;
             if (container && medications.length === 0) {
-                container.innerHTML = `<div style="font-size:22px;color:#ffaa00;text-align:center;padding:24px;">${escapeHtml(t('connErrorBanner'))}</div>`;
+                container.innerHTML = emptyHtml(t('medsEmpty'));
             }
             if (container && medications.length > 0) {
                 container.innerHTML = medications.map(med => `
-                    <div style="background: rgba(255,255,0,0.1); border-left: 5px solid #ffff00; padding: 20px; margin-bottom: 20px; border-radius: 10px;">
-                        <div style="font-size: 32px; color: #ffff00; font-weight: bold; margin-bottom: 10px;">${escapeHtml(med.name)}</div>
-                        <div style="font-size: 24px; color: #ffffff; margin-bottom: 10px;">${t('medsTimeLabel')}: ${escapeHtml((med.scheduleTimes || []).join(', ') || t('medsUnspecified'))}</div>
-                        <div style="font-size: 20px; color: #00ff00; margin-bottom: 15px;">${escapeHtml(med.notes || '')}</div>
+                    <div class="sg-med-card">
+                        <div class="sg-med-card-title">${escapeHtml(med.name || '')}</div>
+                        <div class="sg-med-card-line">${t('medsTimeLabel')}: ${escapeHtml((med.scheduleTimes || []).join(', ') || t('medsUnspecified'))}</div>
+                        ${med.notes ? `<div class="sg-med-card-note">${escapeHtml(med.notes)}</div>` : ''}
                     </div>
                 `).join('');
             }
@@ -4197,10 +4353,9 @@ async function loadMedications() {
                 ? payload
                 : (Array.isArray(payload?.items) ? payload.items : (Array.isArray(payload?.medications) ? payload.medications : []));
             currentMedicationsCache = medications;
-            const container = document.getElementById('medicationsList');
             if (!container) return;
             if (!medications.length) {
-                container.innerHTML = `<div style="font-size:24px;color:#ffff00;text-align:center;padding:24px;">${t('medsEmpty')}</div>`;
+                container.innerHTML = emptyHtml(t('medsEmpty'));
                 return;
             }
             container.innerHTML = medications.map(med => {
@@ -4224,7 +4379,7 @@ async function loadMedications() {
         }
     } catch (error) {
         console.warn('İlaç yükleme hatası:', error);
-        if (container) container.innerHTML = `<div style="font-size:22px;color:#ffaa00;text-align:center;padding:24px;">${escapeHtml(t('connErrorBanner'))}</div>`;
+        if (container) container.innerHTML = emptyHtml(t('connErrorBanner'));
     }
 }
 
@@ -4256,14 +4411,23 @@ async function takeMedication(medicationId) {
 
 async function deleteMedication(medicationId) {
     const token = requireAuthToken();
-    if (!token || !medicationId) return;
+    const id = Number(medicationId);
+    if (!token || !Number.isFinite(id) || id <= 0) {
+        notifyI18n('medDeleteFailedTitle', 'medDeleteFailedMsg', 'error');
+        return;
+    }
+    const confirmed = await showAppConfirm(
+        t('medDeleteBtn'),
+        currentLang === 'en' ? 'Delete this medication?' : 'Bu ilacı silmek istiyor musunuz?'
+    );
+    if (!confirmed) return;
     try {
-        const response = await safeFetch(`${API_BASE}/api/medications/${medicationId}?token=${token}`, {
+        const response = await safeFetch(`${API_BASE}/api/medications/${id}?token=${token}`, {
             method: 'DELETE'
         });
         if (!response) return;
         if (response.ok) {
-            clearMedicationConfirmTimer(medicationId);
+            clearMedicationConfirmTimer(id);
             notifyI18n('medDeletedTitle', 'medDeletedMsg', 'success');
             loadMedications();
             return;
@@ -4401,39 +4565,102 @@ async function handleAddFamily(e) {
     }
 }
 
+function showEmergencyResultScreen(status) {
+    const setCheck = (id, ok) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.classList.toggle('is-ok', Boolean(ok));
+        el.classList.toggle('is-fail', !ok);
+        const ico = el.querySelector('.check-ico');
+        if (ico) ico.textContent = ok ? '✓' : '!';
+    };
+    setCheck('checkLocation', status.locationOk);
+    setCheck('checkNotify', status.notifyOk);
+    setCheck('checkSms', status.smsOk);
+
+    const mapLabel = document.getElementById('emergencyMapLabel');
+    if (mapLabel) {
+        mapLabel.textContent = status.locationLabel || status.mapsUrl || t('checkLocation');
+    }
+    const mapCard = document.getElementById('emergencyMapCard');
+    if (mapCard && status.mapsUrl) {
+        mapCard.onclick = () => openExternalUrl(status.mapsUrl);
+    }
+    showScreen('emergencyResultScreen');
+    applyTranslations();
+}
+
+function getGreetingFirstName() {
+    const raw = String(localStorage.getItem('userName') || '').trim();
+    const parts = raw.split(/\s+/).filter(Boolean);
+    const isBad = (word) => /^(app|user|demo|test|null|undefined|kullanıcı|user)$/i.test(word || '');
+
+    let first = parts[0] || '';
+    if (parts.length >= 2 && isBad(first)) {
+        first = parts[1];
+    }
+    if (!first || isBad(first)) {
+        const email = localStorage.getItem('userEmail')
+            || localStorage.getItem('rememberedEmail')
+            || '';
+        if (email.includes('@')) {
+            const local = email.split('@')[0]
+                .replace(/[._-]+/g, ' ')
+                .trim()
+                .split(/\s+/)
+                .filter(Boolean)
+                .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
+            first = local.find((w) => !isBad(w)) || local[0] || '';
+        }
+    }
+    if (!first || isBad(first)) return '';
+    return first.charAt(0).toUpperCase() + first.slice(1);
+}
+
 function updateGreeting() {
-    const name = localStorage.getItem('userName') || 'Arkadaş';
+    const name = getGreetingFirstName();
+    const hour = new Date().getHours();
+    let hello = t('morningHi');
+    if (hour >= 12 && hour < 18) hello = t('afternoonHi');
+    if (hour >= 18 || hour < 5) hello = t('eveningHi');
     const greeting = document.getElementById('greeting');
     if (greeting) {
-        greeting.textContent = `${t('welcomeMsg')}, ${name}`;
+        greeting.textContent = name ? `${hello}, ${name}` : hello;
     }
 }
 
 function pickPreferredVoice(langCode) {
-    // TTS TEMP DISABLED
-    // if (IS_CAPACITOR_IOS) return null;
-    // if (!('speechSynthesis' in window)) return null;
-    // const voices = speechSynthesis.getVoices() || [];
-    // if (!voices.length) return null;
-    // if (langCode === 'en-GB') {
-    //     return voices.find(v => /^en-GB$/i.test(v.lang))
-    //         || voices.find(v => /^en-/i.test(v.lang) && /google|samantha|serena|daniel|karen/i.test(v.name))
-    //         || voices.find(v => /^en-/i.test(v.lang))
-    //         || null;
-    // }
-    // return voices.find(v => /^tr-TR$/i.test(v.lang))
-    //     || voices.find(v => /^tr/i.test(v.lang))
-    //     || null;
-    return null;
+    if (!('speechSynthesis' in window)) return null;
+    const voices = speechSynthesis.getVoices() || [];
+    if (!voices.length) return null;
+    if (langCode === 'en-GB' || langCode === 'en-US' || String(langCode || '').startsWith('en')) {
+        return voices.find(v => /^en-GB$/i.test(v.lang))
+            || voices.find(v => /^en-US$/i.test(v.lang))
+            || voices.find(v => /^en-/i.test(v.lang) && /google|samantha|serena|daniel|karen/i.test(v.name))
+            || voices.find(v => /^en-/i.test(v.lang))
+            || null;
+    }
+    return voices.find(v => /^tr-TR$/i.test(v.lang))
+        || voices.find(v => /^tr/i.test(v.lang))
+        || null;
 }
 
-function speak(text) {
-    // TTS TEMP DISABLED
-    // if (!text || typeof text !== 'string') return;
-    // if ('speechSynthesis' in window) {
-    //   ... intentionally disabled during stabilization ...
-    // }
-    return;
+function speak(text, langOverride) {
+    if (!text || typeof text !== 'string') return;
+    const langCode = langOverride
+        || (currentLang === 'en' ? 'en-US' : 'tr-TR');
+    try {
+        if (!('speechSynthesis' in window)) return;
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = langCode;
+        utterance.rate = 0.92;
+        const voice = pickPreferredVoice(langCode);
+        if (voice) utterance.voice = voice;
+        speechSynthesis.cancel();
+        speechSynthesis.speak(utterance);
+    } catch (error) {
+        console.warn('TTS failed:', error);
+    }
 }
 
 async function triggerEmergencyCall() {
@@ -4469,13 +4696,25 @@ function showEmergencyConfirm() {
     }
 
     const modal = document.getElementById('emergencyModal');
+    const countdownEl = document.getElementById('emergencyCountdown');
     if (modal) {
         modal.classList.add('show');
-        speak('Acil yardım onayı. Aileye ve sağlık kuruluşlarına konumla bildirim gönderilecek. İptal etmek için iptal butonuna basın.');
+        speak(currentLang === 'en'
+            ? 'Emergency confirmation. Location will be shared with family. Press cancel to stop.'
+            : 'Acil yardım onayı. Konumunuz ailenize gönderilecek. İptal için iptal butonuna basın.');
         if (emergencyTimer) {
             clearTimeout(emergencyTimer);
+            emergencyTimer = null;
         }
+        let remaining = 5;
+        if (countdownEl) countdownEl.textContent = String(remaining);
+        const tick = setInterval(() => {
+            remaining -= 1;
+            if (countdownEl) countdownEl.textContent = String(Math.max(remaining, 0));
+            if (remaining <= 0) clearInterval(tick);
+        }, 1000);
         emergencyTimer = setTimeout(() => {
+            clearInterval(tick);
             if (isEmergencyModalOpen) {
                 confirmEmergency();
             }
@@ -4511,24 +4750,61 @@ async function confirmEmergency() {
     const token = requireAuthToken();
     if (!token) return;
     try {
+        speak(currentLang === 'en'
+            ? 'Sending emergency alert with your location to family.'
+            : 'Konumunuz alınıyor ve ailenize haber veriliyor.');
         const location = await getCurrentLocation();
         const response = await safeFetch(`${API_BASE}/api/emergency-alert?token=${token}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                location: location?.label || location?.mapsUrl || 'Unknown',
+                type: 'emergency',
+                message: location?.label
+                    ? `Acil yardım çağrısı. Konum: ${location.label}`
+                    : 'Acil yardım çağrısı. Konum alınamadı.',
+                location: {
+                    label: location?.label || '',
+                    mapsUrl: location?.mapsUrl || '',
+                    latitude: location?.coords?.latitude ?? null,
+                    longitude: location?.coords?.longitude ?? null,
+                    accuracy: location?.coords?.accuracy ?? null
+                },
                 coords: location?.coords || null
             })
         });
-        if (!response) return;
-        if (response.ok) {
-            notifyI18n('emergencySentTitle', 'emergencySentMsg', 'success');
-            await sendEmergencyNotification(location);
-            await sendEmergencyBroadcast(buildEmergencyPayload(location));
-            await sendEmergencySmsToFamily(location);
-            await triggerEmergencyCall();
-        } else {
+        if (!response) {
             notifyI18n('emergencyFailedTitle', 'emergencyFailedMsg', 'error');
+            return;
+        }
+
+        const result = await safeReadJson(response, {});
+        if (!response.ok) {
+            notifyI18n('emergencyFailedTitle', 'emergencyFailedMsg', 'error');
+            return;
+        }
+
+        const locationOk = Boolean(result.locationSaved);
+        const smsOk = Number(result.smsDispatched || 0) > 0;
+        const realtimeOk = Boolean(result.realtimeBroadcasted);
+        const pushOk = Number(result.pushSent || 0) > 0;
+        const familyReached = Boolean(result.familyReached) || smsOk || realtimeOk || pushOk;
+
+        showEmergencyResultScreen({
+            locationOk,
+            notifyOk: realtimeOk || pushOk,
+            smsOk,
+            mapsUrl: result.mapsUrl || location?.mapsUrl || '',
+            locationLabel: result.location || location?.label || ''
+        });
+
+        if (familyReached) {
+            // Call is optional from result screen button
+        } else {
+            showNotification(
+                currentLang === 'en' ? 'Alert saved — delivery incomplete' : 'Kayıt alındı — iletim eksik',
+                result.smsError || (currentLang === 'en' ? 'Family could not be reached yet.' : 'Aileye henüz ulaşılamadı.'),
+                'error'
+            );
         }
     } catch (error) {
         console.error('Acil çağrı hatası:', error);
@@ -4905,64 +5181,65 @@ async function loadHealthRecords() {
 function renderHealthRecords(records) {
     const healthDiv = document.getElementById('healthRecordsContent') || document.getElementById('healthRecordsScreen');
     if (!healthDiv) return;
+    const list = Array.isArray(records) ? records : [];
 
     let html = '<div class="sg-health-wrap">';
 
-    if (records.length === 0) {
-        html += `<p class="sg-health-empty">${t('noRecordsYet')}</p>`;
+    if (list.length === 0) {
+        html += `<p class="sg-empty-state">${t('noRecordsYet')}</p>`;
     } else {
         const byType = {};
-        records.forEach(r => {
-            if (!byType[r.recordType]) byType[r.recordType] = [];
-            byType[r.recordType].push(r);
+        list.forEach(r => {
+            const key = r.recordType || r.metricType || 'other';
+            if (!byType[key]) byType[key] = [];
+            byType[key].push(r);
         });
 
         Object.keys(byType).forEach(type => {
             const typeRecords = byType[type];
             const latest = typeRecords[0];
-            const alertColor = latest.alertLevel === 'critical' ? '#ef4444' : latest.alertLevel === 'warning' ? '#f59e0b' : '#22c55e';
-            const statusLabel = latest.alertLevel === 'critical'
+            const alertLevel = latest.alertLevel || latest.healthStatus || 'normal';
+            const alertColor = alertLevel === 'critical' ? '#e11d48' : alertLevel === 'warning' ? '#d97706' : '#1f9d55';
+            const statusLabel = alertLevel === 'critical'
                 ? t('healthCritical')
-                : latest.alertLevel === 'warning'
+                : alertLevel === 'warning'
                     ? t('healthWarning')
                     : t('healthNormal');
+            const value = latest.value ?? latest.systolic ?? latest.glucose ?? '-';
+            const unit = latest.unit || '';
+            const when = latest.timestamp || latest.recordedAt;
 
             html += `<div class="sg-health-card" style="border-left-color:${alertColor}">
-                <div class="sg-health-card-title">${escapeHtml(String(type).toUpperCase())}: ${escapeHtml(String(latest.value))} ${escapeHtml(latest.unit || '')}</div>
+                <div class="sg-health-card-title">${escapeHtml(String(type))}: ${escapeHtml(String(value))} ${escapeHtml(String(unit))}</div>
                 <div class="sg-health-card-status" style="color:${alertColor}">${statusLabel}</div>
-                <div class="sg-health-card-meta">${t('healthLastLabel')}: ${new Date(latest.timestamp).toLocaleString(currentLang === 'en' ? 'en-US' : 'tr-TR')}</div>
-                <div class="sg-health-card-meta">${t('healthLastFiveLabel')}: ${typeRecords.slice(0, 5).map(r => escapeHtml(String(r.value))).join(', ')}</div>
+                <div class="sg-health-card-meta">${t('healthLastLabel')}: ${when ? new Date(when).toLocaleString(currentLang === 'en' ? 'en-US' : 'tr-TR') : '-'}</div>
             </div>`;
         });
     }
 
-    html += `<button type="button" onclick="showAddHealthRecord()" class="btn-giant btn-blue sg-health-add">${t('addNewRecordBtn')}</button>`;
+    html += `
+      <div class="sg-health-add-panel">
+        <p class="sg-health-add-title">${t('addNewRecordBtn')}</p>
+        <div class="btn-stack">
+          <button type="button" class="btn-giant btn-blue" onclick="addHealthRecordQuick('1')">${currentLang === 'en' ? 'Blood pressure' : 'Tansiyon'}</button>
+          <button type="button" class="btn-giant btn-blue" onclick="addHealthRecordQuick('2')">${currentLang === 'en' ? 'Blood sugar' : 'Kan şekeri'}</button>
+          <button type="button" class="btn-giant btn-blue" onclick="addHealthRecordQuick('3')">${currentLang === 'en' ? 'Cholesterol' : 'Kolesterol'}</button>
+        </div>
+      </div>`;
     html += '</div>';
 
     healthDiv.innerHTML = html;
 }
 
-async function showAddHealthRecord() {
-    const type = await showAppPrompt(
-        t('addNewRecordBtn'),
-        currentLang === 'en'
-            ? 'Which measurement?\n1 = Blood Pressure\n2 = Blood Sugar\n3 = Cholesterol'
-            : 'Hangi ölçüm?\n1 = Tansiyon\n2 = Kan Şekeri\n3 = Kolesterol'
-    );
-    if (!type) return;
-
-    const recordType = type === '1' ? 'tansiyon' : type === '2' ? 'şeker' : type === '3' ? 'kolesterol' : null;
-    if (!recordType) {
-        notifyI18n('genericErrorTitle', 'genericErrorMsg', 'error');
-        return;
-    }
-
-    const recordTypeLabel = type === '1'
+async function addHealthRecordQuick(typeCode) {
+    const recordType = typeCode === '1' ? 'tansiyon' : typeCode === '2' ? 'şeker' : typeCode === '3' ? 'kolesterol' : null;
+    if (!recordType) return;
+    const recordTypeLabel = typeCode === '1'
         ? (currentLang === 'en' ? 'blood pressure' : 'tansiyon')
-        : type === '2'
+        : typeCode === '2'
             ? (currentLang === 'en' ? 'blood sugar' : 'şeker')
             : (currentLang === 'en' ? 'cholesterol' : 'kolesterol');
-    const unit = type === '1' ? 'mmHg' : 'mg/dL';
+    const unit = typeCode === '1' ? 'mmHg' : 'mg/dL';
     const value = await showAppPrompt(
         t('addNewRecordBtn'),
         currentLang === 'en'
@@ -4970,8 +5247,15 @@ async function showAddHealthRecord() {
             : `${recordTypeLabel} değerini girin (${unit}):`
     );
     if (!value) return;
+    await saveHealthRecordValue(recordType, value, unit);
+}
 
-    addHealthRecord(recordType, value, unit);
+async function showAddHealthRecord() {
+    // Kept for compatibility; UI now uses quick buttons on the health screen.
+}
+
+async function saveHealthRecordValue(recordType, value, unit) {
+    await addHealthRecord(recordType, value, unit);
 }
 
 async function addHealthRecord(recordType, value, unit) {
@@ -5100,6 +5384,8 @@ function bindGlobals() {
         openPrivacyPolicy,
         openTermsOfUse,
         showEmergencyConfirm,
+        showEmergencyResultScreen,
+        triggerEmergencyCall,
         confirmEmergency,
         cancelEmergency,
         submitMood,
@@ -5112,6 +5398,8 @@ function bindGlobals() {
         setMedicationPreset,
         takeMedication,
         deleteMedication,
+        addHealthRecordQuick,
+        showAddHealthRecord,
         updateA11yControlsVisibility,
     };
     Object.entries(exports).forEach(([name, fn]) => {

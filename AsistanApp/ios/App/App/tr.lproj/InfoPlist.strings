@@ -4,5 +4,6 @@
 "NSPhotoLibraryAddUsageDescription" = "SafeGuardian AI, çekilen ilaç fotoğraflarını analiz ve paylaşım akışı için fotoğraf arşivinize kaydedebilir.";
 "NSPhotoLibraryUsageDescription" = "SafeGuardian AI, galeriden ilaç fotoğrafı seçebilmeniz için fotoğraf arşivinize erişir.";
 "NSMicrophoneUsageDescription" = "SafeGuardian AI, sesli komutlar ve güvenlik özellikleri için mikrofonunuzu kullanır.";
+"NSSpeechRecognitionUsageDescription" = "SafeGuardian AI, yaşlı kullanıcıların sesli komutlarla ilaç, ruh hali ve acil yardım işlemlerini yapabilmesi için konuşma tanıma kullanır.";
 "NSUserTrackingUsageDescription" = "Bu veriler, size daha kişiselleştirilmiş reklam deneyimi sunmak ve ödüllü özellikleri doğrulamak için kullanılacaktır.";
 "NSFaceIDUsageDescription" = "SafeGuardian, hızlı ve güvenli giriş için Face ID kullanır.";

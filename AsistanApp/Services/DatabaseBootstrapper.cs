@@ -26,6 +26,34 @@ public static class DatabaseBootstrapper
         }
 
         await db.Database.MigrateAsync(cancellationToken);
+        await EnsureEmergencyLocationColumnsAsync(db, logger, cancellationToken);
+    }
+
+    private static async Task EnsureEmergencyLocationColumnsAsync(
+        AppDbContext db,
+        ILogger logger,
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            await db.Database.ExecuteSqlRawAsync(
+                """
+                ALTER TABLE "EmergencyAlerts" ADD COLUMN IF NOT EXISTS "LocationLabel" text NOT NULL DEFAULT '';
+                ALTER TABLE "EmergencyAlerts" ADD COLUMN IF NOT EXISTS "MapsUrl" text NOT NULL DEFAULT '';
+                ALTER TABLE "EmergencyAlerts" ADD COLUMN IF NOT EXISTS "Latitude" double precision NULL;
+                ALTER TABLE "EmergencyAlerts" ADD COLUMN IF NOT EXISTS "Longitude" double precision NULL;
+                ALTER TABLE "EmergencyAlerts" ADD COLUMN IF NOT EXISTS "AccuracyMeters" double precision NULL;
+                ALTER TABLE "EmergencyAlerts" ADD COLUMN IF NOT EXISTS "NotificationStored" boolean NOT NULL DEFAULT FALSE;
+                ALTER TABLE "EmergencyAlerts" ADD COLUMN IF NOT EXISTS "SmsDispatched" boolean NOT NULL DEFAULT FALSE;
+                ALTER TABLE "EmergencyAlerts" ADD COLUMN IF NOT EXISTS "RealtimeBroadcasted" boolean NOT NULL DEFAULT FALSE;
+                """,
+                cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            // SQLite / local providers may not support IF NOT EXISTS the same way.
+            logger.LogWarning(ex, "EmergencyAlerts location columns ensure skipped or partially applied.");
+        }
     }
 
     private static async Task<bool> NeedsSchemaResetAsync(

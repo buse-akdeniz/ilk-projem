@@ -10,19 +10,20 @@
     <link rel="apple-touch-icon" href="assets/logo-192.png">
     <link rel="stylesheet" href="elderly.css?v=20260717v11">
     <link rel="stylesheet" href="mood-theme.css">
-    <link rel="stylesheet" href="sg-app.css?v=20260717v11">
+    <link rel="stylesheet" href="sg-app.css?v=20260730v8">
     <link rel="stylesheet" href="sg-icons.css?v=20260717v11">
 </head>
 <body>
     <header class="sg-app-header is-hidden" id="sgAppHeader">
-        <div class="sg-brand">
-            <img class="sg-brand-mark" src="assets/logo-96.png" width="36" height="36" alt="" aria-hidden="true">
-            <span class="sg-brand-text">SafeGuardian<small>AI</small></span>
+        <button type="button" class="sg-header-icon" id="sgMenuBtn" aria-label="Menü" onclick="window.SGShell ? SGShell.toggleSettings(event) : (typeof toggleA11yMenu==='function' && toggleA11yMenu(event))">
+            <span class="sg-ico sg-ico-menu" aria-hidden="true"></span>
+        </button>
+        <div class="sg-brand sg-brand--center">
+            <span class="sg-brand-text">SafeGuardian</span>
         </div>
-        <div class="sg-header-actions">
-            <button type="button" class="sg-icon-btn" id="sgAccountBtn" onclick="showScreen('profileScreen')" data-i18n="accountBtn">HESAP</button>
-            <button type="button" class="sg-icon-btn sg-icon-btn--accent" id="sgSettingsBtn" onclick="if(window.SGShell){SGShell.openSettings();}else if(typeof toggleA11yMenu==='function'){toggleA11yMenu(event);}" data-i18n="settingsBtn">AYARLAR</button>
-        </div>
+        <button type="button" class="sg-header-icon" id="sgAccountBtn" aria-label="Hesap" onclick="showScreen('profileScreen')">
+            <span class="sg-ico sg-ico-bell" aria-hidden="true"></span>
+        </button>
     </header>
     <!-- =================== KAYIT OL =================== -->
     <div id="registerScreen" class="screen">
@@ -61,59 +62,62 @@
         </form>
     </div>
 
-    <!-- =================== ANA SAYFA - 3 BUTON =================== -->
+    <!-- =================== ANA SAYFA =================== -->
     <div id="homeScreen" class="screen">
-        <div class="main-area">
-            <div class="home-grid">
-                <button class="btn-mega btn-medicine" onclick="goToMedications()" aria-label="İlaçlarım">
-                    <span class="btn-icon btn-icon--med" aria-hidden="true"></span>
-                    <span class="btn-text" data-i18n="medicationsLabel">İLAÇLARIM</span>
-                </button>
-                <button class="btn-mega btn-family" onclick="goToFamily()" aria-label="Aile">
-                    <span class="btn-icon btn-icon--family" aria-hidden="true"></span>
-                    <span class="btn-text" data-i18n="familyLabel">AİLE</span>
-                </button>
-                <button class="btn-mega btn-help" onclick="showHelp()" aria-label="Yardım">
-                    <span class="btn-icon btn-icon--help" aria-hidden="true"></span>
-                    <span class="btn-text" data-i18n="helpLabel">YARDIM</span>
-                </button>
-                <button class="btn-mega btn-mood" onclick="goToMoodDashboard()" aria-label="Ruh hali">
-                    <span class="btn-icon btn-icon--mood" aria-hidden="true"></span>
-                    <span class="btn-text" data-i18n="moodLabel">RUH HALİ</span>
-                </button>
-                <button class="btn-mega btn-camera" onclick="goToMedicationVision()" aria-label="Kamera">
-                    <span class="btn-icon btn-icon--camera" aria-hidden="true"></span>
-                    <span class="btn-text" data-i18n="cameraLabel">KAMERA</span>
-                </button>
-                <button class="btn-mega" style="background: linear-gradient(145deg, #6366f1, #4f46e5);" onclick="goToHealthRecords()" aria-label="Sağlık">
-                    <span class="btn-icon btn-icon--health" aria-hidden="true"></span>
-                    <span class="btn-text" data-i18n="healthLabel">SAĞLIK</span>
+        <div class="main-area home-calm">
+            <div class="home-greeting-block">
+                <h1 id="greeting" class="home-greeting">Günaydın</h1>
+                <button type="button" class="home-status-pill" id="homeStatusPill" onclick="submitMood(8)">
+                    <span class="home-status-check" aria-hidden="true">✓</span>
+                    <span data-i18n="homeAllGood">Her şey yolunda</span>
                 </button>
             </div>
 
-            <button class="btn-giant btn-red emergency-main btn-mega--wide home-grid" style="grid-column:1/-1;width:100%;margin-top:4px;" onclick="showEmergencyConfirm()" aria-label="Acil">
+            <div class="home-card-grid" role="navigation" aria-label="Ana menü">
+                <button type="button" class="home-card" onclick="goToMedications()">
+                    <span class="home-card-icon home-card-icon--med" aria-hidden="true"></span>
+                    <span class="home-card-label" data-i18n="medicationsLabel">İlaçlarım</span>
+                </button>
+                <button type="button" class="home-card" onclick="goToFamily()">
+                    <span class="home-card-icon home-card-icon--family" aria-hidden="true"></span>
+                    <span class="home-card-label" data-i18n="familyLabel">Ailem</span>
+                </button>
+                <button type="button" class="home-card" onclick="goToHealthRecords()">
+                    <span class="home-card-icon home-card-icon--health" aria-hidden="true"></span>
+                    <span class="home-card-label" data-i18n="healthLabel">Sağlığım</span>
+                </button>
+                <button type="button" class="home-card" onclick="showHelp()">
+                    <span class="home-card-icon home-card-icon--help" aria-hidden="true"></span>
+                    <span class="home-card-label" data-i18n="howToUseLabel">Nasıl Kullanılır</span>
+                </button>
+            </div>
+
+            <button type="button" class="home-emergency-btn" onclick="showEmergencyConfirm()" aria-label="Acil yardım">
+                <span class="home-emergency-ico" aria-hidden="true"></span>
                 <span data-i18n="emergencyBtn">ACİL YARDIM</span>
             </button>
-            <div class="mood-quick" aria-live="polite">
-                <div class="mood-quick-title" data-i18n="howAreYou">NASILSIN?</div>
-                <div class="mood-quick-buttons">
-                    <button class="btn-giant btn-green mood-quick-btn" onclick="submitMood(8)" aria-label="İyiyim">
-                        <span data-i18n="moodGood">İYİYİM</span>
-                    </button>
-                    <button class="btn-giant btn-yellow mood-quick-btn" onclick="submitMood(5)" aria-label="İdare eder">
-                        <span data-i18n="moodOk">İDARE EDER</span>
-                    </button>
-                    <button class="btn-giant btn-red mood-quick-btn" onclick="submitMood(2)" aria-label="Kötüyüm">
-                        <span data-i18n="moodBad">İYİ DEĞİLİM</span>
-                    </button>
-                </div>
-            </div>
 
-            <button class="btn-giant btn-gray" id="shareDoctorReportBtn" onclick="shareDoctorReport()" aria-label="Doktor raporu">
-                <span data-i18n="doctorBtn">DOKTORA GÖSTER</span>
-            </button>
+            <div class="home-secondary-row">
+                <button type="button" class="home-secondary-btn" onclick="goToMoodDashboard()" data-i18n="moodLabel">Ruh hali</button>
+                <button type="button" class="home-secondary-btn" onclick="toggleListening()" data-i18n="voiceStartBtn">Sesli komut</button>
+            </div>
             <div id="voiceStatus" class="voice-indicator" role="status" aria-live="polite"></div>
         </div>
+
+        <nav class="sg-bottom-nav" aria-label="Alt menü">
+            <button type="button" class="sg-bottom-nav-item is-active" onclick="showScreen('homeScreen')">
+                <span class="sg-bottom-ico sg-bottom-ico--home" aria-hidden="true"></span>
+                <span data-i18n="navHome">Ana Sayfa</span>
+            </button>
+            <button type="button" class="sg-bottom-nav-item" onclick="goToFamily()">
+                <span class="sg-bottom-ico sg-bottom-ico--family" aria-hidden="true"></span>
+                <span data-i18n="navFamily">Aile</span>
+            </button>
+            <button type="button" class="sg-bottom-nav-item" onclick="showScreen('profileScreen')">
+                <span class="sg-bottom-ico sg-bottom-ico--profile" aria-hidden="true"></span>
+                <span data-i18n="navProfile">Profil</span>
+            </button>
+        </nav>
     </div>
 
     <!-- =================== RUH HALİ DASHBOARD =================== -->
@@ -169,7 +173,7 @@
     <!-- =================== İLAÇ EKLEME =================== -->
     <div id="addMedicationScreen" class="screen">
         <div class="top-bar">
-            <button class="btn-small btn-back" onclick="showScreen('homeScreen')" data-i18n="backBtn">← GERİ</button>
+            <button class="btn-small btn-back" onclick="showScreen('medicationScreen')" data-i18n="backBtn">← GERİ</button>
             <h1 data-i18n="addMedTitle">YENİ İLAÇ EKLE</h1>
         </div>
 
@@ -479,14 +483,39 @@
     </div>
 
     <!-- =================== ACİL DURUM ONAY =================== -->
-    <div id="emergencyModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="emergencyTitle">
-        <div class="modal-content">
-            <h2 id="emergencyTitle" data-i18n="emergencyModalTitle">Acil yardım çağrılıyor</h2>
-            <p data-i18n="emergencyModalDesc">5 saniye içinde onaylanacak. Aileye ve sağlık kuruluşlarına bildirim ile konum paylaşılır. İptal edebilirsiniz.</p>
-            <div class="modal-actions">
-                <button class="btn-giant btn-red" onclick="confirmEmergency()" data-i18n="confirmBtn">ONAYLA</button>
-                <button class="btn-giant btn-gray" onclick="cancelEmergency()" data-i18n="cancelBtn">İPTAL</button>
+    <div id="emergencyModal" class="modal emergency-flow-modal" role="dialog" aria-modal="true" aria-labelledby="emergencyTitle">
+        <div class="modal-content emergency-flow-card">
+            <h2 id="emergencyTitle" data-i18n="emergencyModalTitle">Acil yardım</h2>
+            <div class="emergency-ring" aria-hidden="true">
+                <span id="emergencyCountdown" class="emergency-countdown">5</span>
             </div>
+            <p class="emergency-flow-desc" data-i18n="emergencyModalDesc">Konumunuz alınıyor ve ailenize haber verilecek</p>
+            <div class="modal-actions emergency-flow-actions">
+                <button class="btn-giant btn-red" onclick="confirmEmergency()" data-i18n="confirmBtn">ŞİMDİ GÖNDER</button>
+                <button class="btn-giant btn-gray emergency-cancel-outline" onclick="cancelEmergency()" data-i18n="cancelBtn">İPTAL ET</button>
+            </div>
+            <p class="emergency-loc-note"><span class="loc-dot" aria-hidden="true"></span> <span data-i18n="locationOn">Konum açık</span></p>
+        </div>
+    </div>
+
+    <!-- =================== ACİL DURUM SONUÇ =================== -->
+    <div id="emergencyResultScreen" class="screen">
+        <div class="top-bar">
+            <button class="btn-small btn-back" onclick="showScreen('homeScreen')" data-i18n="backBtn">← GERİ</button>
+            <h1 data-i18n="emergencyResultTitle">Yardım durumu</h1>
+        </div>
+        <div class="main-area emergency-result">
+            <div class="emergency-map-card" id="emergencyMapCard">
+                <div class="emergency-map-pin" aria-hidden="true"></div>
+                <p id="emergencyMapLabel" class="emergency-map-label">Konum</p>
+            </div>
+            <ul class="emergency-checklist" id="emergencyChecklist">
+                <li id="checkLocation"><span class="check-ico">✓</span><span data-i18n="checkLocation">Konum alındı</span></li>
+                <li id="checkNotify"><span class="check-ico">✓</span><span data-i18n="checkNotify">Aileye bildirim gönderildi</span></li>
+                <li id="checkSms"><span class="check-ico">✓</span><span data-i18n="checkSms">SMS gönderildi</span></li>
+            </ul>
+            <button type="button" class="btn-giant btn-green" onclick="triggerEmergencyCall()" data-i18n="callFamilyBtn">AİLEMİ ARA</button>
+            <button type="button" class="link-home" onclick="showScreen('homeScreen')" data-i18n="backHomeLink">Ana sayfaya dön</button>
         </div>
     </div>
 
@@ -512,7 +541,7 @@
         </div>
     </div>
 
-    <div class="a11y-controls" aria-label="Erişilebilirlik ayarları">
+    <div id="a11yControls" class="a11y-controls" aria-label="Erişilebilirlik ayarları">
         <button id="a11yMenuBtn" class="btn-small btn-gray a11y-menu-btn" aria-expanded="false" aria-controls="a11yMenu" onclick="toggleA11yMenu(event)">
             <span data-i18n="settingsBtn">AYARLAR</span>
         </button>
@@ -565,8 +594,8 @@
     <script src="../js/native-fetch.js?v=20260709v10"></script>
     <script src="../js/revenuecat.js?v=20260718v12"></script>
     <script src="../js/admob.js?v=20260717v11"></script>
-    <script src="elderly.js?v=20260718v12"></script>
-    <script src="sg-shell.js?v=20260709v10"></script>
+    <script src="elderly.js?v=20260730v8"></script>
+    <script src="sg-shell.js?v=20260730v8"></script>
     <script src="voice-assistant.js?v=20260505"></script>
 </body>
 </html>

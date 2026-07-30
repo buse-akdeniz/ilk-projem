@@ -4,5 +4,6 @@
 "NSPhotoLibraryAddUsageDescription" = "SafeGuardian AI may save captured medication photos for analysis and sharing workflow.";
 "NSPhotoLibraryUsageDescription" = "SafeGuardian AI accesses your photo library so you can choose medication photos from gallery.";
 "NSMicrophoneUsageDescription" = "SafeGuardian AI uses your microphone for voice commands and safety features.";
+"NSSpeechRecognitionUsageDescription" = "SafeGuardian AI uses speech recognition so older adults can manage medications, mood, and emergency help with voice commands.";
 "NSUserTrackingUsageDescription" = "This data is used to deliver more relevant ads and verify rewarded features.";
 "NSFaceIDUsageDescription" = "SafeGuardian uses Face ID for quick, secure sign-in.";
